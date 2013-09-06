@@ -342,7 +342,6 @@ camera.Camera.prototype.takePicture_ = function() {
 
     // Create a picture preview animation.
     var picturePreview = document.querySelector('#picture-preview');
-    picturePreview.textContent = '';
     var img = document.createElement('img');
     img.src = dataURL;
     img.style.webkitTransform = 'rotate(' + (Math.random() * 60 - 30) + 'deg)';
