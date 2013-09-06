@@ -41,6 +41,14 @@ button {
   margin: 0 2px;
 }
 
+#header button:hover {
+  background-color: rgba(60, 60, 60, 0.75);
+}
+
+#header button:active {
+  background-color: rgba(90, 90, 90, 0.75);
+}
+
 body.expanded #header button {
   opacity: 1;
 }
@@ -82,6 +90,7 @@ body.gallery #header #gallery-button {
       url('../images/topbar_button_close.png') 1x,
       url('../images/2x/topbar_button_close.png') 2x);
 }
+
 
 body.gallery #main-canvas-wrapper,
 body.gallery #main-fast-canvas-wrapper {
