@@ -192,17 +192,18 @@ canvas {
 }
 
 #toolbar {
+  -webkit-transform: translateY(200px);
   background-color: rgba(0, 0, 0, 0.75);
-  bottom: -200px;
+  bottom: 0;
   left: 0;
   padding: 10px;
   position: absolute;
   right: 0;
-  transition: bottom 200ms linear;
+  transition: -webkit-transform 200ms linear;
 }
 
 body.expanded #toolbar {
-  bottom: 0;
+  -webkit-transform: translateY(0);
 }
 
 #shutter {
@@ -237,9 +238,6 @@ body.show-shutter #shutter {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   position: absolute;
   width: 100%;
-}
-
-#picture-preview img::first {
 }
 
 @-webkit-keyframes animatePicture {
