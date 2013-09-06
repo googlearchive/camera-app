@@ -95,6 +95,8 @@ camera.Camera = function() {
   this.collapsingTimer_ = null;
   this.expandingTimer_ = null;
 
+  this.resizingTimer_ = null;
+
   // Insert the main canvas to its container.
   document.querySelector('#main-canvas-wrapper').appendChild(this.mainCanvas_);
   document.querySelector('#main-fast-canvas-wrapper').appendChild(
@@ -105,7 +107,7 @@ camera.Camera = function() {
 
   // Synchronize bounds of the video now, when window is resized or if the
   // video dimensions are loaded.
-  window.addEventListener('resize', this.synchronizeBounds_.bind(this));
+  window.addEventListener('resize', this.onWindowResize_.bind(this));
   this.video_.addEventListener('loadedmetadata',
       this.synchronizeBounds_.bind(this));
   this.synchronizeBounds_();
@@ -198,6 +200,19 @@ camera.Camera.prototype.setCurrentEffect_ = function(effectIndex) {
   this.mainProcessor_.effect = this.previewProcessors_[effectIndex].effect;
   this.mainFastProcessor_.effect = this.previewProcessors_[effectIndex].effect;
   this.currentEffectIndex_ = effectIndex;
+};
+
+camera.Camera.prototype.onWindowResize_ = function() {
+  // Suspend capturing while resizing for smoother UI.
+  if (this.resizingTimer_) {
+    clearTimeout(this.resizingTimer_);
+    this.resizingTimer_ = null;
+  }
+  this.resizingTimer_ = setTimeout(function() {
+    this.resizingTimer_ = null;
+  }.bind(this), 100);
+    
+  this.synchronizeBounds_();
 };
 
 camera.Camera.prototype.onKeyPressed_ = function(event) {
@@ -495,6 +510,10 @@ camera.Camera.prototype.start = function() {
 camera.Camera.prototype.drawFrame_ = function() {
   // No capturing when the gallery is opened.
   if (this.gallery_)
+    return;
+
+  // No capturing while resizing.
+  if (this.resizingTimer_)
     return;
 
   // Copy the video frame to the back buffer. The back buffer is low resolution,
