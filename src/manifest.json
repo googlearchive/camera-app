@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Camera",
+  "version": "1.0",
+  "permissions": ["videoCapture"],
+  "app": {
+    "background": {
+      "scripts": ["js/background.js"]
+    }
+  }
+}
