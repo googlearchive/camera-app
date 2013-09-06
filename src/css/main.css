@@ -222,23 +222,24 @@ body.show-shutter #shutter {
 }
 
 #picture-preview {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 25%;
+  left: 25%;
+  right: 25%;
+  bottom: 25%;
   position: absolute;
   pointer-events: none;
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
 }
 
 #picture-preview img {
+  -webkit-animation: animatePicture 1s 1s;
+  -webkit-animation-fill-mode: forwards;
   border: 6px solid white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  display: -webkit-box;
-  width: 50%;
-  -webkit-animation: animatePicture 1s 1s;
+  position: absolute;
+  width: 100%;
+}
+
+#picture-preview img::first {
 }
 
 @-webkit-keyframes animatePicture {
@@ -248,7 +249,7 @@ body.show-shutter #shutter {
   to {
     -webkit-transform: rotate(0) scale(0.5);
     margin-top: -100%;
-    margin-right: -90%;
+    margin-left: 90%;
     opacity: 0;
   }
 }
