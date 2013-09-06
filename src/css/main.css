@@ -247,9 +247,7 @@ body.show-shutter #shutter {
     opacity: 1;
   }
   to {
-    -webkit-transform: rotate(0) scale(0.5);
-    margin-top: -100%;
-    margin-left: 90%;
+    -webkit-transform: rotate(0) scale(0.5) translate(1000px, -1000px);
     opacity: 0;
   }
 }
