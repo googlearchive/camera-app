@@ -231,6 +231,10 @@ body.show-shutter #shutter {
   pointer-events: none;
 }
 
+body.gallery #picture-preview {
+  display: none;
+}
+
 #picture-preview img {
   -webkit-animation: animatePicture 1s 1s;
   -webkit-animation-fill-mode: forwards;
@@ -267,7 +271,12 @@ body.show-shutter #shutter {
   border: 4px solid white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   margin: 10px;
-  width: 160px;
+  transition: -webkit-transform 100ms linear;
+  width: 240px;
+}
+
+#gallery img:hover {
+  -webkit-transform: scale(1.2);
 }
 
 body:not(.gallery) #gallery {
