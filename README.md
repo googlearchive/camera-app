@@ -32,3 +32,4 @@ Known issues
 * The app has to be restarted after suspending to work.
 * Effect previews on the ribbon freeze from time to time.
 * No error messages.
+* Taking pictures could be faster.
