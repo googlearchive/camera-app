@@ -23,3 +23,9 @@ Shortcuts
 Tricks
 ------
 * Clicking on some effects on the ribbon, randomizes its parameters.
+
+
+Known issues
+------------
+* The effect ribbon is loading too slow, showing white rectangles.
+* The Tilt Shift effect is a little bit slow.
