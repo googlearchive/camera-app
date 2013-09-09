@@ -92,4 +92,3 @@ camera.effects.BunnyHead.prototype.getTitle = function() {
   return chrome.i18n.getMessage('bunnyHeadEffect');
 };
 
-

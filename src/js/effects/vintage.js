@@ -37,7 +37,7 @@ camera.effects.Vintage.prototype.randomize = function() {
  * @override
  */
 camera.effects.Vintage.prototype.filterFrame = function(canvas) {
-  canvas.brightnessContrast(this.brightness_, this.contrast_).
+ canvas.brightnessContrast(this.brightness_, this.contrast_).
     vibrance(this.vibrance_).
     vignette(0.5, 0.4);
 };
@@ -46,6 +46,6 @@ camera.effects.Vintage.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Vintage.prototype.getTitle = function() {
-  return chrome.i18n.getMessage('vintageEffect');
+  return chrome.i18n.getMessage('cinemaEffect');
 };
 

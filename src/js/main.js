@@ -181,6 +181,7 @@ camera.Camera = function() {
   this.addEffect_(new camera.effects.Colorize(this.tracker_));
   this.addEffect_(new camera.effects.Newspaper(this.tracker_));
   this.addEffect_(new camera.effects.TiltShift(this.tracker_));
+  this.addEffect_(new camera.effects.Cinema(this.tracker_));
 
   // Select the default effect.
   this.setCurrentEffect_(0);
