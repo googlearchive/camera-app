@@ -25,7 +25,12 @@ camera.effects.Swirl.prototype = {
  * @override
  */
 camera.effects.Swirl.prototype.filterFrame = function(canvas) {
-  canvas.swirl(canvas.width / 2, canvas.height / 2, canvas.width / 2, 1);
+  var face = this.tracker_.getFace();
+  x = canvas.width * (face.x + (face.width / 2));
+  y = canvas.height * face.y;
+  radius = Math.sqrt(face.width * face.width +
+                     face.height * face.height) * canvas.width;
+  canvas.swirl(x, y, radius, face.confidence * 2.0);
 };
 
 /**

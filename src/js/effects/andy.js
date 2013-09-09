@@ -25,7 +25,12 @@ camera.effects.Andy.prototype = {
  * @override
  */
 camera.effects.Andy.prototype.filterFrame = function(canvas) {
-  canvas.bulgePinch(canvas.width / 2, canvas.height / 2, canvas.width / 10, -1);
+  var face = this.tracker_.getFace();
+  x = canvas.width * (face.x + (face.width / 2));
+  y = canvas.height * face.y;
+  radius = Math.sqrt(face.width * face.width +
+                     face.height * face.height) * canvas.width / 5;
+  canvas.bulgePinch(x, y - radius, radius, -1);
 };
 
 /**
