@@ -146,6 +146,15 @@ camera.Camera = function() {
    */
   this.resizingTimer_ = null;
 
+  /**
+   * Set to true before the ribbon is displayed. Used to render the ribbon's
+   * frames while it is not yet displayed, so the previews have some image
+   * as soon as possible.
+   * @type {boolean}
+   * @private
+   */
+  this.ribbonInitialization_ = true;
+
   // Insert the main canvas to its container.
   document.querySelector('#main-canvas-wrapper').appendChild(this.mainCanvas_);
   document.querySelector('#main-fast-canvas-wrapper').appendChild(
@@ -579,7 +588,10 @@ camera.Camera.prototype.start = function() {
     }
     chrome.app.window.current().show();
     // Show tools after some small delay to make it more visible.
-    setTimeout(this.setExpanded_.bind(this, true), 500);
+    setTimeout(function() {
+      this.ribbonInitialization_ = false;
+      this.setExpanded_(true);
+    }.bind(this), 500);
   }.bind(this);
 
   var onFailure = function() {
@@ -606,7 +618,7 @@ camera.Camera.prototype.start = function() {
  * Draws a single frame for the main canvas and effects.
  * @private
  */
-camera.Camera.prototype.drawFrame_ = function() {
+camera.Camera.prototype.drawFrame_ = function(opt_force) {
   // No capturing when the gallery is opened.
   if (this.gallery_)
     return;
@@ -618,18 +630,17 @@ camera.Camera.prototype.drawFrame_ = function() {
   // Copy the video frame to the back buffer. The back buffer is low resolution,
   // since it is only used by preview windows.
   var context = this.previewInputCanvas_.getContext('2d');
-  // context.save();
-  // context.scale(-1, 1);
-  // context.translate(-this.previewInputCanvas_.width, 0);
   context.drawImage(this.video_,
                     0,
                     0,
                     this.previewInputCanvas_.width,
                     this.previewInputCanvas_.height); 
-  // context.restore();
 
-  // Process effect preview canvases.
-  if (this.frame_ % 3 == 0 && this.expanded_ && !this.taking_) {
+  // Process effect preview canvases. Ribbin initialization is true before the
+  // ribbon is expanded for the first time. This trick is used to fill the
+  // ribbon with images as soon as possible.
+  if (this.frame_ % 3 == 0 && this.expanded_ && !this.taking_ ||
+      this.ribbonInitialization_) {
     for (var index = 0; index < this.previewProcessors_.length; index++) {
       this.previewProcessors_[index].processFrame();
     }

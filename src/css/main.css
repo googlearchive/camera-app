@@ -169,7 +169,8 @@ canvas {
 
 #effects li canvas {
   display: -webkit-box;
-  background-color: white;
+  opacity: 1;
+  transition: opacity 200ms;
 }
 
 #effects li span {

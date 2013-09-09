@@ -27,7 +27,6 @@ Tricks
 
 Known issues
 ------------
-* The effect ribbon is loading too slow, showing white rectangles.
 * The Tilt Shift effect is a little bit slow.
 * The app has to be restarted after suspending to work.
 * Effect previews on the ribbon freeze from time to time.
