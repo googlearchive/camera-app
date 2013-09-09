@@ -33,9 +33,14 @@ camera.effects.Pinch.prototype.randomize = function() {
  * @override
  */
 camera.effects.Pinch.prototype.filterFrame = function(canvas) {
-  canvas.bulgePinch(canvas.width / 2,
-                    canvas.height / 2,
-                    canvas.width * this.amount_, 1);
+  var face = this.tracker_.getFace();
+  x = canvas.width * (face.x + (face.width / 2));
+  y = canvas.height * face.y;
+  radius = Math.sqrt(face.width * face.width +
+                     face.height * face.height) * canvas.width;
+  canvas.bulgePinch(x,
+                    y,
+                    radius * this.amount_, 0.5 * face.confidence);
 };
 
 /**

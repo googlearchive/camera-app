@@ -80,6 +80,13 @@ camera.Camera = function() {
   this.currentEffectIndex_ = 0;
 
   /**
+   * Face detector and tracker.
+   * @type {camera.Tracker}
+   * @private
+   */
+  this.tracker_ = new camera.Tracker(this.previewInputCanvas_);
+
+  /**
    * Current frame.
    * @type {number}
    * @private
@@ -162,16 +169,16 @@ camera.Camera = function() {
   this.synchronizeBounds_();
 
   // Prepare effect previews.
-  this.addEffect_(new camera.effects.Normal());
-  this.addEffect_(new camera.effects.Vintage());
-  this.addEffect_(new camera.effects.Andy());
-  this.addEffect_(new camera.effects.Swirl());
-  this.addEffect_(new camera.effects.Pinch());
-  this.addEffect_(new camera.effects.Grayscale());
-  this.addEffect_(new camera.effects.Sepia());
-  this.addEffect_(new camera.effects.Colorize());
-  this.addEffect_(new camera.effects.Newspaper());
-  this.addEffect_(new camera.effects.TiltShift());
+  this.addEffect_(new camera.effects.Normal(this.tracker_));
+  this.addEffect_(new camera.effects.Vintage(this.tracker_));
+  this.addEffect_(new camera.effects.Andy(this.tracker_));
+  this.addEffect_(new camera.effects.Swirl(this.tracker_));
+  this.addEffect_(new camera.effects.Pinch(this.tracker_));
+  this.addEffect_(new camera.effects.Grayscale(this.tracker_));
+  this.addEffect_(new camera.effects.Sepia(this.tracker_));
+  this.addEffect_(new camera.effects.Colorize(this.tracker_));
+  this.addEffect_(new camera.effects.Newspaper(this.tracker_));
+  this.addEffect_(new camera.effects.TiltShift(this.tracker_));
 
   // Select the default effect.
   this.setCurrentEffect_(0);
@@ -611,6 +618,9 @@ camera.Camera.prototype.drawFrame_ = function(opt_force) {
                     0,
                     this.previewInputCanvas_.width,
                     this.previewInputCanvas_.height); 
+
+  // Detect and track faces.
+  this.tracker_.requestUpdate();
 
   // Process effect preview canvases. Ribbin initialization is true before the
   // ribbon is expanded for the first time. This trick is used to fill the
