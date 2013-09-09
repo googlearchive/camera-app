@@ -99,14 +99,21 @@ camera.Camera = function() {
    * @private
    */
   this.expanded_ = false;
-  
+
   /**
-   * Whether the tools are being expanded or collapsed. Used for suspending
-   * preview captures while animating for smoother UI.
-   * @type {boolean}
+   * Tools animation effect wrapper.
+   * @type {camera.util.StyleEffect}
    * @private
    */
-  this.expandingOrCollapsing_ = false;
+  this.toolsEffect_ = new camera.util.StyleEffect(
+      function(args, callback) {
+        if (args)
+          document.body.classList.add('expanded');
+        else
+          document.body.classList.remove('expanded');
+        camera.util.waitForTransitionCompletion(
+          document.querySelector('#toolbar'), 500, callback);
+      });
   
   /**
    * Whether a picture is being taken. Used to decrease video quality of
@@ -123,22 +130,6 @@ camera.Camera = function() {
    */
   this.collapseTimer_ = null;
   
-  /**
-   * Timer used to detect that collapsing is done.
-   * TODO(mtomasz): Remove this and listen to the animation end event instead.
-   * @type {?number}
-   * @private
-   */
-  this.collapsingTimer_ = null;
-  
-  /**
-   * Timer used to detect that expanding is done.
-   * TODO(mtomasz): Remove this and listen to the animation end event instead.
-   * @type {?number}
-   * @private
-   */
-   this.expandingTimer_ = null;
-
   /**
    * Timer used to suspend capturing while resizing for smoother UI.
    * @type {?number}
@@ -381,32 +372,17 @@ camera.Camera.prototype.setExpanded_ = function(expanded) {
     clearTimeout(this.collapseTimer_);
     this.collapseTimer_ = null;
   }
-  if (this.collapsingTimer_) {
-    clearTimeout(this.collapsingTimer_);
-    this.collapsingTimer_ = null;
-  }
-  if (this.expandingTimer_) {
-    clearTimeout(this.expandingTimer_);
-    this.expandingTimer_ = null;
-  }
   if (expanded) {
-    document.body.classList.add('expanded');
     this.collapseTimer_ = setTimeout(this.setExpanded_.bind(this, false), 2000);
     if (!this.expanded_) {
-      this.expandingOrCollapsing_ = true;
-      this.expandingTimer_ = setTimeout(function() {
+      this.toolsEffect_.invoke(true, function() {
         this.expanded_ = true;
-        this.expandingOrCollapsing_ = false;
-      }.bind(this), 500);
+      }.bind(this));
     }
   } else {
-    document.body.classList.remove('expanded');
     if (this.expanded_) {
       this.expanded_ = false;
-      this.expandingOrCollapsing_ = true;
-      this.collapsingTimer_ = setTimeout(function() {
-        this.expandingOrCollapsing_ = false;
-      }.bind(this), 500);
+      this.toolsEffect_.invoke(false, function() {});
     }
   }
 };
@@ -465,7 +441,7 @@ camera.Camera.prototype.takePicture_ = function() {
     img.src = dataURL;
     img.style.webkitTransform = 'rotate(' + (Math.random() * 40 - 20) + 'deg)';
     picturePreview.appendChild(img);
-    camera.util.waitForAnimationCompletion(img, function() {
+    camera.util.waitForAnimationCompletion(img, 1000, function() {
       img.parentNode.removeChild(img);
      this.taking_ = false;
     }.bind(this));
@@ -649,7 +625,7 @@ camera.Camera.prototype.drawFrame_ = function(opt_force) {
 
   // Process the full resolution frame. Decrease FPS when expanding for smooth
   // animations.
-  if (this.taking_ || this.expandingOrCollapsing_) {
+  if (this.taking_ || this.toolsEffect_.isActive()) {
     this.mainFastProcessor_.processFrame();
     this.mainCanvas_.parentNode.hidden = true;
     this.mainFastCanvas_.parentNode.hidden = false;
