@@ -21,10 +21,16 @@ camera.effects.Swirl.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Swirl.prototype.filterFrame = function(canvas) {
   canvas.swirl(canvas.width / 2, canvas.height / 2, canvas.width / 2, 1);
 };
 
+/**
+ * @override
+ */
 camera.effects.Swirl.prototype.getTitle = function() {
   return 'Swirl';
 };

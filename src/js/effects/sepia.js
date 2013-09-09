@@ -21,10 +21,16 @@ camera.effects.Sepia.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Sepia.prototype.filterFrame = function(canvas) {
   canvas.sepia(0.5);
 };
 
+/**
+ * @override
+ */
 camera.effects.Sepia.prototype.getTitle = function() {
   return 'Sepia';
 };

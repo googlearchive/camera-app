@@ -23,11 +23,17 @@ camera.effects.TiltShift.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.TiltShift.prototype.randomize = function() {
   this.amount_ = Math.random() * 100 + 50;
   this.gradient_ = Math.random() * 4 + 1;
 };
 
+/**
+ * @override
+ */
 camera.effects.TiltShift.prototype.filterFrame = function(canvas) {
   canvas.tiltShift(0,
                    canvas.height * 0.4,
@@ -37,6 +43,9 @@ camera.effects.TiltShift.prototype.filterFrame = function(canvas) {
                    canvas.height / this.gradient_);
 };
 
+/**
+ * @override
+ */
 camera.effects.TiltShift.prototype.getTitle = function() {
   return 'Tilt Shift';
 };

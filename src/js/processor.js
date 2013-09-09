@@ -44,6 +44,11 @@ camera.Processor = function(input, output, opt_mode) {
   this.effect_ = null;
 };
 
+/**
+ * Type of the processor. For FAST it uses lowered resolution. DEFAULT is high
+ * quality.
+ * @enum {number}
+ */
 camera.Processor.Mode = {
   DEFAULT: 0,
   FAST: 1
@@ -58,6 +63,10 @@ camera.Processor.prototype = {
   }
 };
 
+/**
+ * Processes an input frame, applies effects and flushes result to the output
+ * canvas.
+ */
 camera.Processor.prototype.processFrame = function() {
   var width = this.input_.videoWidth || this.input_.width;
   var height = this.input_.videoHeight || this.input_.height;

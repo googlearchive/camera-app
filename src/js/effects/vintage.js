@@ -24,18 +24,27 @@ camera.effects.Vintage.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Vintage.prototype.randomize = function() {
   this.brightness_ = Math.random() * 0.4;
   this.vibrance_ = Math.random() > 0.5 ? -1 : 1;
   this.contrast_ = Math.random() * 0.6 - 0.2;
 };
 
+/**
+ * @override
+ */
 camera.effects.Vintage.prototype.filterFrame = function(canvas) {
   canvas.brightnessContrast(this.brightness_, this.contrast_).
     vibrance(this.vibrance_).
     vignette(0.5, 0.4);
 };
 
+/**
+ * @override
+ */
 camera.effects.Vintage.prototype.getTitle = function() {
   return 'Vintage';
 };

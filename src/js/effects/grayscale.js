@@ -21,10 +21,16 @@ camera.effects.Grayscale.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Grayscale.prototype.filterFrame = function(canvas) {
   canvas.hueSaturation(0, -1);
 };
 
+/**
+ * @override
+ */
 camera.effects.Grayscale.prototype.getTitle = function() {
   return 'Grayscale';
 };

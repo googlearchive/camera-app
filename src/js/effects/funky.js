@@ -21,10 +21,16 @@ camera.effects.Funky.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Funky.prototype.filterFrame = function(canvas) {
   canvas.colorHalftone(320, 0.25, 5);
 };
 
+/**
+ * @override
+ */
 camera.effects.Funky.prototype.getTitle = function() {
   return 'Funky';
 };

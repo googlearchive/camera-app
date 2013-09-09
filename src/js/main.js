@@ -86,15 +86,64 @@ camera.Camera = function() {
    */
   this.frame_ = 0;
 
+  /**
+   * If the gallery is opened.
+   * @type {boolean}
+   * @private
+   */
   this.gallery_ = false;
+  
+  /**
+   * If the tools are expanded.
+   * @type {boolean}
+   * @private
+   */
   this.expanded_ = false;
+  
+  /**
+   * Whether the tools are being expanded or collapsed. Used for suspending
+   * preview captures while animating for smoother UI.
+   * @type {boolean}
+   * @private
+   */
   this.expandingOrCollapsing_ = false;
+  
+  /**
+   * Whether a picture is being taken. Used to decrease video quality of
+   * previews for smoother response.
+   * @type {boolean}
+   * @private
+   */
   this.taking_ = false;
 
+  /**
+   * Timer used to automatically collapse the tools.
+   * @type {?number}
+   * @private
+   */
   this.collapseTimer_ = null;
+  
+  /**
+   * Timer used to detect that collapsing is done.
+   * TODO(mtomasz): Remove this and listen to the animation end event instead.
+   * @type {?number}
+   * @private
+   */
   this.collapsingTimer_ = null;
-  this.expandingTimer_ = null;
+  
+  /**
+   * Timer used to detect that expanding is done.
+   * TODO(mtomasz): Remove this and listen to the animation end event instead.
+   * @type {?number}
+   * @private
+   */
+   this.expandingTimer_ = null;
 
+  /**
+   * Timer used to suspend capturing while resizing for smoother UI.
+   * @type {?number}
+   * @private
+   */
   this.resizingTimer_ = null;
 
   // Insert the main canvas to its container.
@@ -158,6 +207,11 @@ camera.Camera = function() {
   this.shutterSound_.src = '../sounds/shutter.wav';
 };
 
+/**
+ * Adds an effect to the user interface.
+ * @param {camera.Effect} effect Effect to be added.
+ * @private
+ */
 camera.Camera.prototype.addEffect_ = function(effect) {
   // Create the preview on the ribbon.
   var list = document.querySelector('#effects');
@@ -190,6 +244,11 @@ camera.Camera.prototype.addEffect_ = function(effect) {
   this.previewProcessors_.push(processor);
 };
 
+/**
+ * Sets the current effect.
+ * @param {number} Effect index.
+ * @private
+ */
 camera.Camera.prototype.setCurrentEffect_ = function(effectIndex) {
   document.querySelector('#effects #effect-' + this.currentEffectIndex_).
       removeAttribute('selected');
@@ -202,6 +261,10 @@ camera.Camera.prototype.setCurrentEffect_ = function(effectIndex) {
   this.currentEffectIndex_ = effectIndex;
 };
 
+/**
+ * Handles resizing of the window.
+ * @private
+ */
 camera.Camera.prototype.onWindowResize_ = function() {
   // Suspend capturing while resizing for smoother UI.
   if (this.resizingTimer_) {
@@ -215,6 +278,11 @@ camera.Camera.prototype.onWindowResize_ = function() {
   this.synchronizeBounds_();
 };
 
+/**
+ * Handles pressed keys.
+ * @param {Event} event Key press event.
+ * @private
+ */
 camera.Camera.prototype.onKeyPressed_ = function(event) {
   // Force forucs on the ribbon.
   document.querySelector('#effects').focus();
@@ -248,6 +316,11 @@ camera.Camera.prototype.onKeyPressed_ = function(event) {
   }
 };
 
+/**
+ * Handles scrolling via mouse on the effects ribbon.
+ * @param {Event} event Mouse move event.
+ * @private
+ */
 camera.Camera.prototype.onRibbonMouseMove_ = function(event) {
   if (event.which != 1)
     return;
@@ -255,7 +328,12 @@ camera.Camera.prototype.onRibbonMouseMove_ = function(event) {
   ribbon.scrollLeft = parseInt(ribbon.scrollLeft) - event.webkitMovementX;
 };
 
-camera.Camera.prototype.onGalleryClicked_ = function(event) {
+/**
+ * Handles clicking on the toggle gallery button. Enters or leaves the
+ * gallery mode.
+ * @private
+ */
+camera.Camera.prototype.onGalleryClicked_ = function() {
   if (this.gallery_) {
     document.body.classList.remove('gallery');
     this.gallery_ = false;
@@ -265,17 +343,30 @@ camera.Camera.prototype.onGalleryClicked_ = function(event) {
   }
 };
 
-camera.Camera.prototype.onMaximizeClicked_ = function(event) {
+/**
+ * Handles clicking on the toggle maximization button.
+ * @private
+ */
+camera.Camera.prototype.onMaximizeClicked_ = function() {
   if (chrome.app.window.current().isMaximized())
     chrome.app.window.current().restore();
   else
     chrome.app.window.current().maximize();
 };
 
-camera.Camera.prototype.onCloseClicked_ = function(event) {
+/**
+ * Handles clicking on the close application button.
+ * @private
+ */
+camera.Camera.prototype.onCloseClicked_ = function() {
   chrome.app.window.current().close();
 };
 
+/**
+ * Toggles the tools visibility.
+ * @param {boolean} expanded True to show the tools, false to hide.
+ * @private
+ */
 camera.Camera.prototype.setExpanded_ = function(expanded) {
   if (this.collapseTimer_) {
     clearTimeout(this.collapseTimer_);
@@ -311,6 +402,10 @@ camera.Camera.prototype.setExpanded_ = function(expanded) {
   }
 };
 
+/**
+ * Takes the picture, saves and puts to the gallery with a nice animation.
+ * @private
+ */
 camera.Camera.prototype.takePicture_ = function() {
   // Lock refreshing for smoother experience.
   this.taking_ = true;
@@ -507,6 +602,10 @@ camera.Camera.prototype.start = function() {
   tryNextResolution();
 };
 
+/**
+ * Draws a single frame for the main canvas and effects.
+ * @private
+ */
 camera.Camera.prototype.drawFrame_ = function() {
   // No capturing when the gallery is opened.
   if (this.gallery_)

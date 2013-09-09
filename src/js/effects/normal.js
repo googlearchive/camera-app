@@ -21,6 +21,9 @@ camera.effects.Normal.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Normal.prototype.getTitle = function() {
   return 'Normal';
 };

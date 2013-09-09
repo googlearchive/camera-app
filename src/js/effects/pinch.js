@@ -22,16 +22,25 @@ camera.effects.Pinch.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Pinch.prototype.randomize = function() {
   this.amount_ = Math.random() * 0.6 + 0.2;
 };
 
+/**
+ * @override
+ */
 camera.effects.Pinch.prototype.filterFrame = function(canvas) {
   canvas.bulgePinch(canvas.width / 2,
                     canvas.height / 2,
                     canvas.width * this.amount_, 1);
 };
 
+/**
+ * @override
+ */
 camera.effects.Pinch.prototype.getTitle = function() {
   return 'Pinch';
 };

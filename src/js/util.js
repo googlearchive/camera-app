@@ -37,6 +37,12 @@ camera.util.setAnimationClass = function(
       animationElement, onAnimationCompleted);
 };
 
+/**
+ * Waits for animation completion and calls the callback.
+ *
+ * @param {Element} animationElement Element to be animatd.
+ * @param {function()} onCompletion Completion callback.
+ */
 camera.util.waitForAnimationCompletion = function(
     animationElement, onCompletion) {
   var onAnimationCompleted = function() {

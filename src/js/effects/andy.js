@@ -21,10 +21,16 @@ camera.effects.Andy.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Andy.prototype.filterFrame = function(canvas) {
   canvas.bulgePinch(canvas.width / 2, canvas.height / 2, canvas.width / 10, -1);
 };
 
+/**
+ * @override
+ */
 camera.effects.Andy.prototype.getTitle = function() {
   return 'Andy';
 };

@@ -22,14 +22,23 @@ camera.effects.Newspaper.prototype = {
   __proto__: camera.Effect.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.Newspaper.prototype.randomize = function() {
   this.amount_ = this.amount_ % 15 + 3;
 };
 
+/**
+ * @override
+ */
 camera.effects.Newspaper.prototype.filterFrame = function(canvas) {
   canvas.dotScreen(320, 239.5, 1.1, this.amount_ / 720 * canvas.height);
 };
 
+/**
+ * @override
+ */
 camera.effects.Newspaper.prototype.getTitle = function() {
   return 'Newspaper';
 };
