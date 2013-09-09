@@ -55,7 +55,7 @@ camera.effects.Cinema.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Cinema.prototype.getTitle = function() {
-  return chrome.i18n.getMessage('tiltShiftEffect');
+  return chrome.i18n.getMessage('cinemaEffect');
 };
 
 /**
