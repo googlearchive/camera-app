@@ -623,7 +623,7 @@ camera.Camera.prototype.drawFrame_ = function(opt_force) {
                     this.previewInputCanvas_.height); 
 
   // Detect and track faces.
-  if (this.frame_ % 10 == 0)
+  if (this.frame_ % 3 == 0)
     this.tracker_.detect();
 
   // Update internal state of the tracker.

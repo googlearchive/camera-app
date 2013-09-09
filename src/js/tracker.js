@@ -81,7 +81,7 @@ camera.Tracker.Face.prototype.setTargetConfidence = function(confidence) {
 };
 
 camera.Tracker.Face.prototype.update = function() {
-  var step = 0.2;
+  var step = 0.3;
   this.x_ += (this.targetX_ - this.x_) * step;
   this.y_ += (this.targetY_ - this.y_) * step;
   this.width_ += (this.targetWidth_ - this.width_) * step;
