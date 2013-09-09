@@ -21,6 +21,12 @@ camera.Tracker = function(input) {
    * @private
    */
   this.face_ = new camera.Tracker.Face();
+
+  /**
+   * @type {boolean}
+   * @private
+   */
+  this.busy_ = false;
 };
 
 camera.Tracker.Face = function() {
@@ -87,26 +93,32 @@ camera.Tracker.Face.prototype.update = function() {
  * Requests face detection on the current frame.
  */
 camera.Tracker.prototype.detect = function() {
+  if (this.busy_)
+    return;
+  this.busy_ = true;
   var result = ccv.detect_objects({
     canvas: this.input_,//ccv.grayscale(ccv.pre(this.input_)),
     cascade: cascade,
     interval: 5,
     min_neighbors: 1,
-  });
+    worker: 1,
+    async: true
+  })(function(result) {
+    if (result.length) {
+      result.sort(function(a, b) {
+        return a.confidence < b.confidence;
+      });
 
-  if (result.length) {
-    result.sort(function(a, b) {
-      return a.confidence < b.confidence;
-    });
-
-    this.face_.setTargetX(result[0].x / this.input_.width);
-    this.face_.setTargetY(result[0].y / this.input_.height);
-    this.face_.setTargetWidth(result[0].width / this.input_.width);
-    this.face_.setTargetHeight(result[0].height / this.input_.height);
-    this.face_.setTargetConfidence(1.0);
-  } else {
-    this.face_.setTargetConfidence(0);
-  }
+      this.face_.setTargetX(result[0].x / this.input_.width);
+      this.face_.setTargetY(result[0].y / this.input_.height);
+      this.face_.setTargetWidth(result[0].width / this.input_.width);
+      this.face_.setTargetHeight(result[0].height / this.input_.height);
+      this.face_.setTargetConfidence(1.0);
+    } else {
+      this.face_.setTargetConfidence(0);
+    }
+    this.busy_ = false;
+  }.bind(this));
 };
 
 camera.Tracker.prototype.update = function() {
