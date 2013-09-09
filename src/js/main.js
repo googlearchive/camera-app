@@ -620,7 +620,11 @@ camera.Camera.prototype.drawFrame_ = function(opt_force) {
                     this.previewInputCanvas_.height); 
 
   // Detect and track faces.
-  this.tracker_.requestUpdate();
+  if (this.frame_ % 10 == 0)
+    this.tracker_.detect();
+
+  // Update internal state of the tracker.
+  this.tracker_.update();
 
   // Process effect preview canvases. Ribbin initialization is true before the
   // ribbon is expanded for the first time. This trick is used to fill the
