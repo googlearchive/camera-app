@@ -174,12 +174,12 @@ camera.Camera = function() {
   this.addEffect_(new camera.effects.BigHead(this.tracker_));
   this.addEffect_(new camera.effects.BigJaw(this.tracker_));
   this.addEffect_(new camera.effects.BunnyHead(this.tracker_));
-  // this.addEffect_(new camera.effects.Andy(this.tracker_));
   this.addEffect_(new camera.effects.Swirl(this.tracker_));
   this.addEffect_(new camera.effects.Grayscale(this.tracker_));
   this.addEffect_(new camera.effects.Sepia(this.tracker_));
   this.addEffect_(new camera.effects.Colorize(this.tracker_));
   this.addEffect_(new camera.effects.Newspaper(this.tracker_));
+  this.addEffect_(new camera.effects.Funky(this.tracker_));
   this.addEffect_(new camera.effects.TiltShift(this.tracker_));
   this.addEffect_(new camera.effects.Cinema(this.tracker_));
 

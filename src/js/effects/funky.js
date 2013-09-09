@@ -25,7 +25,7 @@ camera.effects.Funky.prototype = {
  * @override
  */
 camera.effects.Funky.prototype.filterFrame = function(canvas) {
-  canvas.colorHalftone(320, 0.25, 5);
+  canvas.colorHalftone(320, 240, 0.25, 5);
 };
 
 /**
