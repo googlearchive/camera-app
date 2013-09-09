@@ -30,3 +30,13 @@ camera.Effect.prototype.getTitle = function() {
   return '(Effect)';
 };
 
+/**
+ * Returns true if the effect is slow and preview should be done in lower
+ * resolution to keep acceptable FPS.
+ *
+ * @return {boolean} True if slow, false otherwise.
+ */
+camera.Effect.prototype.isSlow = function() {
+  return false;
+};
+

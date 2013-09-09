@@ -50,3 +50,10 @@ camera.effects.TiltShift.prototype.getTitle = function() {
   return chrome.i18n.getMessage('tiltShiftEffect');
 };
 
+/**
+ * @override
+ */
+camera.effects.TiltShift.prototype.isSlow = function() {
+  return true;
+};
+

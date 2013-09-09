@@ -642,7 +642,8 @@ camera.Camera.prototype.drawFrame_ = function(opt_force) {
 
   // Process the full resolution frame. Decrease FPS when expanding for smooth
   // animations.
-  if (this.taking_ || this.toolsEffect_.isActive()) {
+  if (this.taking_ || this.toolsEffect_.isActive() ||
+      this.mainProcessor_.effect.isSlow()) {
     this.mainFastProcessor_.processFrame();
     this.mainCanvas_.parentNode.hidden = true;
     this.mainFastCanvas_.parentNode.hidden = false;
