@@ -46,6 +46,6 @@ camera.effects.Vintage.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Vintage.prototype.getTitle = function() {
-  return chrome.i18n.getMessage('cinemaEffect');
+  return chrome.i18n.getMessage('vintageEffect');
 };
 
