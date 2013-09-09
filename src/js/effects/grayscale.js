@@ -32,6 +32,6 @@ camera.effects.Grayscale.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Grayscale.prototype.getTitle = function() {
-  return 'Grayscale';
+  return chrome.i18n.getMessage('grayscaleEffect');
 };
 

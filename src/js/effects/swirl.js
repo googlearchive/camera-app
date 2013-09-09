@@ -32,6 +32,6 @@ camera.effects.Swirl.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Swirl.prototype.getTitle = function() {
-  return 'Swirl';
+  return chrome.i18n.getMessage('swirlEffect');
 };
 

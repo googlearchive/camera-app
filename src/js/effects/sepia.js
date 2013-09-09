@@ -32,6 +32,6 @@ camera.effects.Sepia.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Sepia.prototype.getTitle = function() {
-  return 'Sepia';
+  return chrome.i18n.getMessage('sepiaEffect');
 };
 

@@ -32,6 +32,6 @@ camera.effects.Andy.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Andy.prototype.getTitle = function() {
-  return 'Andy';
+  return chrome.i18n.getMessage('andyEffect');
 };
 

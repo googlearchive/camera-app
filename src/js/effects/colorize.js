@@ -40,6 +40,6 @@ camera.effects.Colorize.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Colorize.prototype.getTitle = function() {
-  return 'Colorize';
+  return chrome.i18n.getMessage('colorizeEffect');
 };
 

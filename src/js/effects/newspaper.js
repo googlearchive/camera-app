@@ -40,6 +40,6 @@ camera.effects.Newspaper.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Newspaper.prototype.getTitle = function() {
-  return 'Newspaper';
+  return chrome.i18n.getMessage('newspaperEffect');
 };
 

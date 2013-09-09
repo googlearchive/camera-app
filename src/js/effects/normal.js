@@ -25,6 +25,6 @@ camera.effects.Normal.prototype = {
  * @override
  */
 camera.effects.Normal.prototype.getTitle = function() {
-  return 'Normal';
+  return chrome.i18n.getMessage('normalEffect');
 };
 

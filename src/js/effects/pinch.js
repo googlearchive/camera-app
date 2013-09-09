@@ -42,6 +42,6 @@ camera.effects.Pinch.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Pinch.prototype.getTitle = function() {
-  return 'Pinch';
+  return chrome.i18n.getMessage('pinchEffect');
 };
 

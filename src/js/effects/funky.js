@@ -32,6 +32,6 @@ camera.effects.Funky.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.Funky.prototype.getTitle = function() {
-  return 'Funky';
+  return chrome.i18n.getMessage('funkyEffect');
 };
 

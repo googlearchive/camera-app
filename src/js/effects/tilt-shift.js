@@ -47,6 +47,6 @@ camera.effects.TiltShift.prototype.filterFrame = function(canvas) {
  * @override
  */
 camera.effects.TiltShift.prototype.getTitle = function() {
-  return 'Tilt Shift';
+  return chrome.i18n.getMessage('tiltShiftEffect');
 };
 
