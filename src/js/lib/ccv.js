@@ -47,6 +47,7 @@ if (parallable === undefined) {
 									complete(ctrl.post.apply(scope, [outputs]));
 							}
 						})(i);
+                                                scope.shared.cascade = null;  // TODO(mtomasz): Temporary hack.
 						var msg = { "input" : inputs[i],
 									"name" : funct.toString(),
 									"shared" : scope.shared,
@@ -246,8 +247,12 @@ var ccv = {
 		};
 
 		function core(pyr, id, worker_num) {
-			var cascade = this.shared.cascade;
-			var interval = this.shared.interval;
+                        importScripts('face.js');
+			var cascade = getCascade();
+                       	for (i = 0; i < cascade.stage_classifier.length; i++)
+			  cascade.stage_classifier[i].orig_feature = cascade.stage_classifier[i].feature;
+ 
+                        var interval = this.shared.interval;
 			var scale = this.shared.scale;
 			var next = this.shared.next;
 			var scale_upto = this.shared.scale_upto;
@@ -265,7 +270,9 @@ var ccv = {
 								pyr[i * 4 + next * 8].width * 4 - qw * 4];
 				for (j = 0; j < cascade.stage_classifier.length; j++) {
 					var orig_feature = cascade.stage_classifier[j].orig_feature;
-					var feature = cascade.stage_classifier[j].feature = new Array(cascade.stage_classifier[j].count);
+					if (!orig_feature)
+                                          throw new Error(JSON.stringify(cascade.stage_classifier[j]));
+                                        var feature = cascade.stage_classifier[j].feature = new Array(cascade.stage_classifier[j].count);
 					for (k = 0; k < cascade.stage_classifier[j].count; k++) {
 						feature[k] = {"size" : orig_feature[k].size,
 									  "px" : new Array(orig_feature[k].size),
@@ -354,7 +361,7 @@ var ccv = {
 
 		function post(seq) {
 			var min_neighbors = this.shared.min_neighbors;
-			var cascade = this.shared.cascade;
+			var cascade = getCascade();
 			var interval = this.shared.interval;
 			var scale = this.shared.scale;
 			var next = this.shared.next;
@@ -455,7 +462,7 @@ var ccv = {
 onmessage = function (event) {
 	var data = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
 	var scope = { "shared" : data.shared };
-	var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
+        var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
 	try {
 		postMessage(result);
 	} catch (e) {

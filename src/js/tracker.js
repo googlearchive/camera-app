@@ -98,7 +98,7 @@ camera.Tracker.prototype.detect = function() {
   this.busy_ = true;
   var result = ccv.detect_objects({
     canvas: this.input_,//ccv.grayscale(ccv.pre(this.input_)),
-    cascade: cascade,
+    cascade: getCascade(),
     interval: 5,
     min_neighbors: 1,
     worker: 1,
