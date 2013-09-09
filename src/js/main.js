@@ -441,7 +441,7 @@ camera.Camera.prototype.takePicture_ = function() {
     img.src = dataURL;
     img.style.webkitTransform = 'rotate(' + (Math.random() * 40 - 20) + 'deg)';
     picturePreview.appendChild(img);
-    camera.util.waitForAnimationCompletion(img, 1000, function() {
+    camera.util.waitForAnimationCompletion(img, 2500, function() {
       img.parentNode.removeChild(img);
      this.taking_ = false;
     }.bind(this));
