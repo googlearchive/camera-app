@@ -62,6 +62,14 @@
   "vintageEffect": {
     "message": "Vintage",
     "description": "Vintage effect's name. Makes the image look vintage."
+  },
+  "errorMsgUnavailable": {
+    "message": "Your camera is currently unavailable.",
+    "description": "Error message shown when it was impossible to connect to the camera due to unavailability or busy camera."
+  },
+  "errorMsgHint": {
+    "message": "Another app may be using it.",
+    "description": "Hint message shown below the main error message. A hint for a user why the error occured."
   }
 }
 

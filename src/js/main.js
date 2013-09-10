@@ -227,6 +227,12 @@ camera.Camera = function() {
 
   // Load the shutter sound.
   this.shutterSound_.src = '../sounds/shutter.wav';
+
+  // Localize DOM elements.
+  document.querySelector('#error-msg-unavailable').textContent = 
+    chrome.i18n.getMessage('errorMsgUnavailable');
+  document.querySelector('#error-msg-hint').textContent =
+    chrome.i18n.getMessage('errorMsgHint');
 };
 
 /**
@@ -619,10 +625,12 @@ camera.Camera.prototype.start = function() {
       clearTimeout(this.retryStartTimer_);
       this.retryStartTimer_ = null;
     }
+    document.body.classList.remove('no-camera');
   }.bind(this);
 
   var scheduleRetry = function() {
     console.log('Retrying.');
+    document.body.classList.add('no-camera');
     if (this.retryStartTimer_) {
       clearTimeout(this.retryStartTimer_);
       this.retryStartTimer_ = null;
@@ -632,7 +640,6 @@ camera.Camera.prototype.start = function() {
 
   var onFailure = function() {
     chrome.app.window.current().show();
-    // TODO(mtomasz): Show an error message.
     scheduleRetry();
   }.bind(this);
 

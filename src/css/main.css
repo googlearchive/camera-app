@@ -109,6 +109,35 @@ body.gallery #toolbar {
   width: 100%;
 }
 
+#error {
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-box-orient: vertical;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  display: none;
+  color: white;
+  font-size: 18px;
+}
+
+#error .icon {
+  width: 180px;
+  height: 120px;
+  background-image: url(../images/no_camera.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: 20px;
+}
+
+body.no-camera #error {
+  display: -webkit-box;
+}
+
 canvas {
   -webkit-transform: scaleX(-1);
 }
