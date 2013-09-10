@@ -546,6 +546,8 @@ camera.Camera.prototype.synchronizeBounds_ = function() {
     this.video_.src = window.URL.createObjectURL(stream);
     this.video_.play();
     var onAnimationFrame = function() {
+      if (!this.running_)
+        return;
       this.drawFrame_();
       requestAnimationFrame(onAnimationFrame);
     }.bind(this);
@@ -557,7 +559,16 @@ camera.Camera.prototype.synchronizeBounds_ = function() {
 };
 
 /**
- * Starts capturing the screen with the highest possible resolution.
+ * Stops capturing the camera.
+ */
+camera.Camera.prototype.stop = function() {
+  this.running_ = false;
+  this.video_.pause();
+  this.video_.src = '';
+};
+
+/**
+ * Starts capturing the camera with the highest possible resolution.
  */
 camera.Camera.prototype.start = function() {
   var index = 0;
