@@ -24,8 +24,6 @@ Tricks
 ------
 * Clicking on some effects on the ribbon, randomizes its parameters.
 
-
 Known issues
 ------------
-* No error messages.
 * Taking pictures could be faster.
