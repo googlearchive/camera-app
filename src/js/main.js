@@ -16,6 +16,12 @@ camera.Camera = function() {
   this.video_ = document.createElement('video');
 
   /**
+   * @type {?number}
+   * @private
+   */
+  this.retryStartTimer_ = null;
+
+  /**
    * Shutter sound player.
    * @type {Audio}
    * @private
@@ -527,10 +533,11 @@ camera.Camera.prototype.synchronizeBounds_ = function() {
  *                                   resolution.
  * @param {function()} onFailure Failure callback, eg. the resolution is
  *                     not supported.
+ * @param {function()} onDisconnected Called when the camera connection is lost.
  * @private
  */
  camera.Camera.prototype.startWithResolution_ =
-     function(resolution, onSuccess, onFailure) {
+     function(resolution, onSuccess, onFailure, onDisconnected) {
   if (this.running_)
     this.stop();
 
@@ -543,6 +550,7 @@ camera.Camera.prototype.synchronizeBounds_ = function() {
     }
   }, function(stream) {
     this.running_ = true;
+    stream.onended = onDisconnected;
     this.video_.src = window.URL.createObjectURL(stream);
     this.video_.play();
     var onAnimationFrame = function() {
@@ -589,12 +597,26 @@ camera.Camera.prototype.start = function() {
       this.ribbonInitialization_ = false;
       this.setExpanded_(true);
     }.bind(this), 500);
+    if (this.retryStartTimer_) {
+      clearTimeout(this.retryStartTimer_);
+      this.retryStartTimer_ = null;
+    }
+  }.bind(this);
+
+  var scheduleRetry = function() {
+    console.log('Retrying.');
+    if (this.retryStartTimer_) {
+      clearTimeout(this.retryStartTimer_);
+      this.retryStartTimer_ = null;
+    }
+    this.retryStartTimer_ = setTimeout(this.start.bind(this), 1000);
   }.bind(this);
 
   var onFailure = function() {
     chrome.app.window.current().show();
     // TODO(mtomasz): Show an error message.
-  };
+    scheduleRetry();
+  }.bind(this);
 
   var tryNextResolution = function() {
     this.startWithResolution_(camera.Camera.RESOLUTIONS[index],
@@ -605,7 +627,8 @@ camera.Camera.prototype.start = function() {
                                   tryNextResolution();
                                 else
                                   onFailure();
-                              });
+                              },
+                              scheduleRetry.bind(this));  // onDisconnected
   }.bind(this);
 
   tryNextResolution();
