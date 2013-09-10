@@ -22,6 +22,12 @@ camera.Camera = function() {
   this.retryStartTimer_ = null;
 
   /**
+   * @type {?number}
+   * @private
+   */
+  this.watchdog_ = null;
+
+  /**
    * Shutter sound player.
    * @type {Audio}
    * @private
@@ -550,7 +556,15 @@ camera.Camera.prototype.synchronizeBounds_ = function() {
     }
   }, function(stream) {
     this.running_ = true;
-    stream.onended = onDisconnected;
+    // Use a watchdog since the stream.onended event is unreliable in the
+    // recent version of Chrome.
+    this.watchdog_ = setInterval(function() {
+      if (stream.ended) {
+        onDisconnected();
+        clearTimeout(this.watchdog_);
+        this.watchdog_ = null;
+      }
+    }.bind(this), 1000);
     this.video_.src = window.URL.createObjectURL(stream);
     this.video_.play();
     var onAnimationFrame = function() {
@@ -573,6 +587,10 @@ camera.Camera.prototype.stop = function() {
   this.running_ = false;
   this.video_.pause();
   this.video_.src = '';
+  if (this.watchdog_) {
+    clearTimeout(this.watchdog_);
+    this.watchdog_ = null;
+  }
 };
 
 /**
