@@ -27,6 +27,5 @@ Tricks
 
 Known issues
 ------------
-* The app has to be restarted after suspending to work.
 * No error messages.
 * Taking pictures could be faster.
