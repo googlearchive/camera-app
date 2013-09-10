@@ -134,7 +134,7 @@ body.gallery #toolbar {
   margin-bottom: 20px;
 }
 
-body.no-camera #error {
+body.no-camera:not(.gallery) #error {
   display: -webkit-box;
 }
 
@@ -256,7 +256,7 @@ canvas {
   transition: -webkit-transform 200ms linear;
 }
 
-body.expanded #toolbar {
+body.expanded:not(.no-camera) #toolbar {
   -webkit-transform: translateY(0);
 }
 

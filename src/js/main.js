@@ -420,6 +420,9 @@ camera.Camera.prototype.setExpanded_ = function(expanded) {
  * @private
  */
 camera.Camera.prototype.takePicture_ = function() {
+  if (!this.running_)
+    return;
+
   // Lock refreshing for smoother experience.
   this.taking_ = true;
 
