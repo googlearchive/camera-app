@@ -15,6 +15,7 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Funky = function(tracker) {
   camera.Effect.call(this, tracker);
+  this.amount_ = 6;
 };
 
 camera.effects.Funky.prototype = {
@@ -24,8 +25,15 @@ camera.effects.Funky.prototype = {
 /**
  * @override
  */
+camera.effects.Funky.prototype.randomize = function() {
+  this.amount_ = this.amount_ % 15 + 3;
+};
+
+/**
+ * @override
+ */
 camera.effects.Funky.prototype.filterFrame = function(canvas) {
-  canvas.colorHalftone(320, 240, 0.25, 5);
+  canvas.colorHalftone(320, 240, 0.25, this.amount_ / 720 * canvas.height);
 };
 
 /**
