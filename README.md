@@ -19,6 +19,8 @@ Shortcuts
 ---------
 * Left, Right - choose effects.
 * Space, Enter - take a picture.
+* Delete - deletes pictures (in the gallery).
+* Double click - saves pictures (in the gallery).
 
 Tricks
 ------
@@ -27,3 +29,4 @@ Tricks
 Known issues
 ------------
 * Taking pictures could be faster.
+* File names could be better.
