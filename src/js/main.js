@@ -13,7 +13,8 @@ camera.Camera = function() {
    */
   this.context_ = new camera.Camera.Context(
       this.onPictureTaken_.bind(this),
-      this.onError_.bind(this));
+      this.onError_.bind(this),
+      this.onErrorRecovered_.bind(this));
 
    /**
    * @type {camera.views.Camera}
@@ -56,11 +57,11 @@ camera.Camera = function() {
  *
  * @param {function(string)} onPictureTaken Callback to be called, when a
  *     picture is added.
- * @param {function(string)} onError Callback to be called, when an error
- *     occurs.
+ * @param {function(string, string, opt_string)} onError Callback to be called,
+ *     when an error occurs. Arguments: identifier, first line, second line.
  * @constructor
  */
-camera.Camera.Context = function(onPictureTaken, onError) {
+camera.Camera.Context = function(onPictureTaken, onError, onErrorRecovered) {
   camera.View.Context.call(this);
   
   /**
@@ -79,9 +80,14 @@ camera.Camera.Context = function(onPictureTaken, onError) {
   this.onPictureTaken = onPictureTaken;
 
   /**
-   * @param {function(string)}
+   * @param {function(string, string, string)}
    */
   this.onError = onError;
+
+  /**
+   * @param {function(string)}
+   */
+  this.onErrorRecovered = onErrorRecovered;
 };
 
 camera.Camera.Context.prototype = {
@@ -138,6 +144,8 @@ camera.Camera.prototype.onWindowResize_ = function() {
  * @private
  */
 camera.Camera.prototype.onKeyPressed_ = function(event) {
+  if (this.context_.hasError)
+    return;
   this.currentView_.onKeyPressed(event);
 };
 
@@ -179,9 +187,20 @@ camera.Camera.prototype.onPictureTaken_ = function(dataURL) {
   this.galleryView_.addPicture(dataURL);
 };
 
-camera.Camera.prototype.onError_ = function(message) {
-  document.body.classList.add('no-camera');
+camera.Camera.prototype.onError_ = function(identifier, message, opt_hint) {
+  document.body.classList.add('has-error');
   this.context_.hasError = true;
+  document.querySelector('#error-msg').textContent = 
+    message;
+  document.querySelector('#error-msg-hint').textContent =
+    opt_hint ? opt_hint : '';
+};
+
+camera.Camera.prototype.onErrorRecovered_ = function(identifier) {
+  // TODO(mtomasz): Implement identifiers handling in case of multiple
+  // error messages at once.
+  this.context_.hasError = false;
+  document.body.classList.remove('has-error');
 };
 
 /**

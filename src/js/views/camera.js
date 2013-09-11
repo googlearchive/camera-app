@@ -210,12 +210,6 @@ camera.views.Camera = function(context) {
   // Load the shutter sound.
   this.shutterSound_.src = '../sounds/shutter.wav';
 
-  // Localize DOM elements.
-  document.querySelector('#error-msg-unavailable').textContent = 
-    chrome.i18n.getMessage('errorMsgUnavailable');
-  document.querySelector('#error-msg-hint').textContent =
-    chrome.i18n.getMessage('errorMsgHint');
-
   // Start the camera capture.
   // TODO(mtomasz): Consider moving to enter() for a lighter constructor.
   this.start();
@@ -539,12 +533,15 @@ camera.views.Camera.prototype.start = function() {
       clearTimeout(this.retryStartTimer_);
       this.retryStartTimer_ = null;
     }
-    document.body.classList.remove('no-camera');
+    this.context_.onErrorRecovered('no-camera');
   }.bind(this);
 
   var scheduleRetry = function() {
     console.log('Retrying.');
-    document.body.classList.add('no-camera');
+    this.context_.onError(
+        'no-camera',
+        chrome.i18n.getMessage('errorMsgNoCamera'),
+        chrome.i18n.getMessage('errorMsgNoCameraHint'));
     if (this.retryStartTimer_) {
       clearTimeout(this.retryStartTimer_);
       this.retryStartTimer_ = null;

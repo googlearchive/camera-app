@@ -8,9 +8,7 @@
     "videoCapture",
     "storage",
     "unlimitedStorage",
-    {
-      "fileSystem": ["read", "write"]
-    }
+    "fileSystem"
   ],
   "app": {
     "background": {

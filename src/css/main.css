@@ -119,7 +119,6 @@ body.gallery #toolbar {
   top: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none;
   display: none;
   color: white;
   font-size: 18px;
@@ -134,7 +133,7 @@ body.gallery #toolbar {
   margin-bottom: 20px;
 }
 
-body.no-camera:not(.gallery) #error {
+body.has-error #error {
   display: -webkit-box;
 }
 
@@ -256,7 +255,7 @@ canvas {
   transition: -webkit-transform 200ms linear;
 }
 
-body.expanded:not(.no-camera) #toolbar {
+body.expanded:not(.has-error) #toolbar {
   -webkit-transform: translateY(0);
 }
 

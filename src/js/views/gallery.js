@@ -116,7 +116,9 @@ camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
   
   var onError = function() {
     // TODO(mtomasz): Check.
-    this.context.onError(chrome.i18n.getMessage('errorMsgGalleryLoadFailed'));
+    this.context.onError(
+        'gallery-load-failed',
+        chrome.i18n.getMessage('errorMsgGalleryLoadFailed'));
     callback();
   }.bind(this);
 
@@ -184,7 +186,9 @@ camera.views.Gallery.prototype.deletePicture_ = function(index) {
 
   var onError = function() {
     // TODO(mtomasz): Check.
-    this.context.onError(chrome.i18n.getMessage('errorMsgGalleryDeleteFailed'));
+    this.context.onError(
+        'gallery-delete-failed',
+        chrome.i18n.getMessage('errorMsgGalleryDeleteFailed'));
   }.bind(this);
 
   // Remove both files from the file system, then from DOM.
@@ -333,7 +337,9 @@ camera.views.Gallery.prototype.addPicture = function(dataURL) {
   var fileNameBase = new Date().getTime() + '.' + this.lastFileId_;
 
   var onError = function(e) {
-    this.context.onError(chrome.i18n.getMessage('errorMsgGallerySaveFailed'));
+    this.context.onError(
+        'gallery-save-failed',
+        chrome.i18n.getMessage('errorMsgGallerySaveFailed'));
   }.bind(this); 
 
   this.savePictureToFile_(
