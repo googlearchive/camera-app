@@ -316,9 +316,13 @@ body.gallery #picture-preview {
   right: 0;
   bottom: 0;
   overflow: auto;
+  margin: 10px;
   position: absolute;
   display: -webkit-box;
-  margin: 10px;
+}
+
+#gallery .padder {
+  padding: 20px;
 }
 
 #gallery img {
