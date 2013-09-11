@@ -4,7 +4,14 @@
   "description": "__MSG_description__",
   "version": "1.0",
   "default_locale": "en",
-  "permissions": ["videoCapture"],
+  "permissions": [
+    "videoCapture",
+    "storage",
+    "unlimitedStorage",
+    {
+      "fileSystem": ["read", "write"]
+    }
+  ],
   "app": {
     "background": {
       "scripts": ["js/background.js"]

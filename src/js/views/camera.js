@@ -396,27 +396,6 @@ camera.views.Camera.prototype.takePicture_ = function() {
       console.log(opt_error);
     }.bind(this);
     
-    // Take the picture and save to disk.
-    if (this.fileSystem_) {
-      var dateFormatter = Intl.DateTimeFormat(
-          [] /* default locale */,
-          {year: 'numeric', month: 'short', day: 'numeric'});
-      var base64string = dataURL.substring(dataURL.indexOf(',') + 1);
-      var data = atob(base64string);
-      this.fileSystem_.root.getDirectory(
-          '/drive/root/Camera Pictures', {create: true}, function(dirEntry) {
-            var fileName = dateFormatter(new Date()) + '.jpeg';
-            dirEntry.getFile(fileName, {create: true}, function(fileEntry) {
-              fileEntry.createWriter(function(fileWriter) {
-                var blob = new Blob(data, {type: 'image/jpeg'});
-                fileWriter.write(blob);
-              }.bind(this), onError);
-            }.bind(this), onError);
-          }.bind(this), onError);
-    } else {
-      onError();
-    }
-
     // Create a picture preview animation.
     var picturePreview = document.querySelector('#picture-preview');
     var img = document.createElement('img');

@@ -70,6 +70,18 @@
   "errorMsgHint": {
     "message": "Another app may be using it.",
     "description": "Hint message shown below the main error message. A hint for a user why the error occured."
+  },
+  "errorMsgGallerySaveFailed": {
+    "message": "Unable to save the picture to the gallery.",
+    "description": "Error message shown when saving a picture to the gallery failed."
+  },
+  "errorMsgGalleryLoadFailed": {
+    "message": "Unable to load the gallery.",
+    "description": "Error message shown when loading the gallery failed."
+  },
+  "errorMsgGalleryDeleteFailed": {
+    "message": "Unable to delete the selected picture.",
+    "description": "Error message shown when deleting the selected file from gallery failed."
   }
 }
 

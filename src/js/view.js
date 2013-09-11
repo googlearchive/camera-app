@@ -57,6 +57,15 @@ camera.View.prototype.onLeave = function() {
 };
 
 /**
+ * Initializes the view. Call the callback on completion.
+ * @param {function()} callback
+ * @private
+ */
+camera.View.prototype.initialize = function(callback) {
+  callback();
+};
+
+/**
  * Enters the view.
  */
 camera.View.prototype.enter = function() {

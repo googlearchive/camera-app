@@ -11,7 +11,9 @@ camera.Camera = function() {
   /**
    * @type {camera.Camera.Context}
    */
-  this.context_ = new camera.Camera.Context(this.onPictureTaken_.bind(this));
+  this.context_ = new camera.Camera.Context(
+      this.onPictureTaken_.bind(this),
+      this.onError_.bind(this));
 
    /**
    * @type {camera.views.Camera}
@@ -37,9 +39,6 @@ camera.Camera = function() {
    */
   this.resizingTimer_ = null;
 
-  // Enter the camera view.
-  this.switchView_(this.cameraView_);
-
   // Handle key presses to make the Camera app accessible via the keyboard.
   document.body.addEventListener('keydown', this.onKeyPressed_.bind(this));
   
@@ -57,9 +56,11 @@ camera.Camera = function() {
  *
  * @param {function(string)} onPictureTaken Callback to be called, when a
  *     picture is added.
+ * @param {function(string)} onError Callback to be called, when an error
+ *     occurs.
  * @constructor
  */
-camera.Camera.Context = function(onPictureTaken) {
+camera.Camera.Context = function(onPictureTaken, onError) {
   camera.View.Context.call(this);
   
   /**
@@ -68,13 +69,36 @@ camera.Camera.Context = function(onPictureTaken) {
   this.resizing = false;
 
   /**
+   * @param {boolean}
+   */
+  this.hasError = false;
+
+  /**
    * @param {function(string)}
    */
   this.onPictureTaken = onPictureTaken;
+
+  /**
+   * @param {function(string)}
+   */
+  this.onError = onError;
 };
 
 camera.Camera.Context.prototype = {
   __proto__: camera.View.Context.prototype
+};
+
+camera.Camera.prototype.start = function() {
+  var remaining = 2;
+
+  var maybeFinished = function() {
+    remaining--;
+    if (!remaining)
+      this.switchView_(this.cameraView_);
+  }.bind(this);;
+
+  this.cameraView_.initialize(maybeFinished);
+  this.galleryView_.initialize(maybeFinished);
 };
 
 /**
@@ -155,6 +179,11 @@ camera.Camera.prototype.onPictureTaken_ = function(dataURL) {
   this.galleryView_.addPicture(dataURL);
 };
 
+camera.Camera.prototype.onError_ = function(message) {
+  document.body.classList.add('no-camera');
+  this.context_.hasError = true;
+};
+
 /**
  * @type {camera.Camera} Singleton of the Camera object.
  * @private
@@ -175,5 +204,5 @@ camera.Camera.getInstance = function() {
  * Creates the Camera object and starts screen capturing.
  */
 document.addEventListener('DOMContentLoaded', function() {
-  camera.Camera.getInstance();
+  camera.Camera.getInstance().start();
 });
