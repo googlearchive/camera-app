@@ -201,6 +201,56 @@ camera.views.Gallery.prototype.deletePicture_ = function(index) {
 };
 
 camera.views.Gallery.prototype.showPicture_ = function(index) {
+  var picture = this.pictures_[index];
+  
+  var accepts = [{
+    description: "*.jpg",
+    extensions: ["jpg", "jpeg"],
+    mimeTypes: ["image/jpeg"]
+  }];
+
+  fileName = picture.picture.imageEntry.name;
+  
+  var onError = function() {
+    // TODO(mtomasz): Check if it works.
+    this.context_.onError(
+      'gallery-export-error',
+      chrome.i18n.getMessage('errorMsgGalleryExportFailed'));
+  }.bind(this);
+
+  var onDataLoaded = function(data) {
+    chrome.fileSystem.chooseEntry({
+      type: "saveFile",
+      suggestedName: fileName,
+      accepts: accepts
+      }, function(fileEntry) {
+        if (!fileEntry)
+          return;
+        fileEntry.createWriter(function(fileWriter) {
+          fileWriter.onwrite = function() {
+            console.log('Saved.');
+          };
+          fileWriter.onerror = onError;
+          // Blob has to be a Blob instance to be saved.
+          var array = new Uint8Array(data.length);
+          for (var index = 0; index < data.length; index++) {
+            array[index] = data.charCodeAt(index);
+          }
+          var blob = new Blob([array], {type: 'image/jpeg'});
+          fileWriter.write(blob);
+        }.bind(this),
+        onError);
+      }.bind(this));
+  }.bind(this);
+
+  picture.picture.imageEntry.file(function(file) {
+    var reader = new FileReader;
+    reader.onloadend = function(e) {
+      onDataLoaded(reader.result);
+    };
+    reader.onerror = onError;
+    reader.readAsBinaryString(file);
+  }.bind(this));
 };
 
 /**

@@ -82,6 +82,10 @@
   "errorMsgGalleryDeleteFailed": {
     "message": "Unable to delete the selected picture.",
     "description": "Error message shown when deleting the selected file from gallery failed."
+  },
+  "errorMsgGalleryExportFailed": {
+    "message": "Unable to save the selected picture.",
+    "description": "Error message shown when saving the selected file to an external directory failed."
   }
 }
 
