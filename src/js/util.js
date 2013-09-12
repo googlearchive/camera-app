@@ -82,6 +82,27 @@ camera.util.waitForTransitionCompletion = function(
 };
 
 /**
+ * Scrolls the parent of the element so the element is visible.
+ *
+ * @param {Element} element Element to be visible.
+ * @param {=Element} opt_parent Parent element to be scrolled. If not provided,
+ *     then parent of the passed element to be visible willbe used.
+ */
+camera.util.ensureVisible = function(element, opt_parent) {
+  var parent = opt_parent ? opt_parent : element.parentNode;
+  if (element.offsetTop < parent.scrollTop) {
+    parent.scrollTop = element.offsetTop - element.offsetHeight * 0.5;
+    return;
+  }
+  if (element.offsetTop + element.offsetHeight >
+      parent.scrollTop + parent.offsetHeight) {
+    parent.scrollTop = element.offsetTop + element.offsetHeight * 1.5 -
+        parent.offsetHeight;
+    return;
+  }
+};
+
+/**
  * Wraps an effect in style implemented as either CSS3 animation or CSS3
  * transition. The passed closure should invoke the effect. 
  * Only the last callback, passed to the latest invoke() call will be called

@@ -157,6 +157,9 @@ camera.views.Gallery.prototype.setCurrentIndex_ = function(index) {
   this.currentIndex_ = index;
   if (index !== null)
     this.pictures_[index].element.classList.add('selected');
+
+  camera.util.ensureVisible(this.pictures_[index].element,
+                            document.querySelector('#gallery'));
 };
 
 camera.views.Gallery.prototype.deletePicture_ = function(index) {
