@@ -29,11 +29,20 @@ button {
 
 #header button {
   -webkit-app-region: no-drag;
+}
+
+#header button,
+#corner-buttons button {
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+
+#header button,
+#side-buttons button,
+#corner-buttons button {
   background-color: rgba(0, 0, 0, 0.75);
   background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 200ms linear;
   padding: 0;
   border: none;
   height: 32px;
@@ -41,19 +50,28 @@ button {
   margin: 0 2px;
 }
 
-#header button:hover {
+#header button:hover,
+#side-buttons button:hover,
+#corner-buttons button:hover {
   background-color: rgba(60, 60, 60, 0.75);
 }
 
-#header button:active {
+#header button:active,
+#side-buttons button:active,
+#corner-buttons button:active {
   background-color: rgba(90, 90, 90, 0.75);
 }
 
-body.expanded #header button {
+body.expanded #header button,
+body.expanded #corner-buttons button {
   opacity: 1;
 }
 
-#header #gallery-button.flash {
+#toolbar-stripe {
+  position: relative;
+}
+
+#toolbar .gallery-button.flash {
   -webkit-animation: flashButton 300ms linear 1s 3;
 }
 
@@ -69,13 +87,52 @@ body.expanded #header button {
   }
 }
 
-#header #gallery-button {
+#side-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: end;
+  pointer-events: none;
+}
+
+#side-buttons .gallery-button,
+#corner-buttons .gallery-button {
   background-image: -webkit-image-set(
       url('../images/topbar_button_gallery.png') 1x,
       url('../images/2x/topbar_button_gallery.png') 2x);
 }
 
-body.gallery #header #gallery-button {
+#side-buttons button {
+  pointer-events: auto;
+}
+
+#corner-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  -webkit-box-align: end;
+  -webkit-box-pack: end;
+  padding: 10px;
+  pointer-events: none;
+}
+
+#corner-buttons button {
+  pointer-events: auto;
+}
+
+body:not(.gallery) #corner-buttons {
+  display: none;
+}
+
+body.gallery #side-buttons .gallery-button,
+body.gallery #corner-buttons .gallery-button {
   background-color: #4d90fe;
 }
 
@@ -302,7 +359,7 @@ body.gallery #picture-preview {
     opacity: 1;
   }
   to {
-    -webkit-transform: rotate(0) scale(0.5) translate(1000px, -1000px);
+    -webkit-transform: rotate(0) scale(0.2) translate(2500px, 1500px);
     opacity: 0;
   }
 }
