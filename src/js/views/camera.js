@@ -278,8 +278,9 @@ camera.views.Camera.prototype.addEffect_ = function(effect) {
 camera.views.Camera.prototype.setCurrentEffect_ = function(effectIndex) {
   document.querySelector('#effects #effect-' + this.currentEffectIndex_).
       removeAttribute('selected');
-  document.querySelector('#effects #effect-' + effectIndex).setAttribute(
-      'selected', '');
+  var element = document.querySelector('#effects #effect-' + effectIndex);
+  element.setAttribute('selected', '');
+  camera.util.ensureVisible(element, document.querySelector('#effects'));
   if (this.currentEffectIndex_ == effectIndex)
     this.previewProcessors_[effectIndex].effect.randomize();
   this.mainProcessor_.effect = this.previewProcessors_[effectIndex].effect;

@@ -90,15 +90,19 @@ camera.util.waitForTransitionCompletion = function(
  */
 camera.util.ensureVisible = function(element, opt_parent) {
   var parent = opt_parent ? opt_parent : element.parentNode;
-  if (element.offsetTop < parent.scrollTop) {
+  if (element.offsetTop < parent.scrollTop)
     parent.scrollTop = element.offsetTop - element.offsetHeight * 0.5;
-    return;
-  }
   if (element.offsetTop + element.offsetHeight >
       parent.scrollTop + parent.offsetHeight) {
     parent.scrollTop = element.offsetTop + element.offsetHeight * 1.5 -
         parent.offsetHeight;
-    return;
+  }
+  if (element.offsetLeft < parent.scrollLeft)
+    parent.scrollLeft = element.offsetLeft - element.offsetWidth * 0.5;
+  if (element.offsetLeft + element.offsetWidth >
+      parent.scrollLeft + parent.offsetWidth) {
+    parent.scrollLeft = element.offsetLeft + element.offsetWidth * 1.5 -
+        parent.offsetWidth;
   }
 };
 
