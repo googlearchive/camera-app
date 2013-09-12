@@ -362,6 +362,23 @@ camera.views.Camera.prototype.setExpanded_ = function(expanded) {
 };
 
 /**
+ * Chooses a file stream to override the camera stream. Used for debugging.
+ */
+camera.views.Camera.prototype.chooseFileStream = function() {
+  chrome.fileSystem.chooseEntry(function(fileEntry) {
+    if (!fileEntry)
+      return;
+    fileEntry.file(function(file) {
+      var url = URL.createObjectURL(file);
+      console.log(url);
+      this.video_.src = url;
+      this.video_.play();
+      console.log(this.video_.src);
+    }.bind(this));
+  }.bind(this));
+}
+
+/**
  * Takes the picture, saves and puts to the gallery with a nice animation.
  * @private
  */

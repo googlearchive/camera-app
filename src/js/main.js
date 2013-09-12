@@ -40,6 +40,12 @@ camera.Camera = function() {
    */
   this.resizingTimer_ = null;
 
+  /**
+   * @type {string}
+   * @private
+   */
+  this.keyBuffer_ = '';
+
   // Handle key presses to make the Camera app accessible via the keyboard.
   document.body.addEventListener('keydown', this.onKeyPressed_.bind(this));
   
@@ -144,6 +150,17 @@ camera.Camera.prototype.onWindowResize_ = function() {
  * @private
  */
 camera.Camera.prototype.onKeyPressed_ = function(event) {
+  this.keyBuffer_ += String.fromCharCode(event.which);
+  this.keyBuffer_ = this.keyBuffer_.substr(-10);
+
+  // Allow to load a file stream (for debugging).
+  if (this.keyBuffer_.indexOf('CRAZYPONY') !== -1) {
+    if (this.currentView_ != this.cameraView_);
+      this.switchView_(this.cameraView_);
+    this.cameraView_.chooseFileStream();
+    this.keyBuffer_ = '';
+  }
+
   if (this.context_.hasError)
     return;
   this.currentView_.onKeyPressed(event);
