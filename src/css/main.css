@@ -211,7 +211,7 @@ canvas {
   display: -webkit-box;
   -webkit-box-align: center;
   -webkit-box-pack: center;
-  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #buttons button {
