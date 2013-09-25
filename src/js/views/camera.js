@@ -216,7 +216,10 @@ camera.views.Camera = function(context) {
 };
 
 camera.views.Camera.prototype = {
-  __proto__: camera.View.prototype
+  __proto__: camera.View.prototype,
+  get running() {
+    return this.running_;
+  }
 };
 
 /**

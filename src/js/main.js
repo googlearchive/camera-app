@@ -99,14 +99,28 @@ camera.Camera.Context = function(onPictureTaken, onError, onErrorRecovered) {
 };
 
 camera.Camera.Context.prototype = {
-  __proto__: camera.View.Context.prototype
+  __proto__: camera.View.Context.prototype,
 };
 
+camera.Camera.prototype = {
+  get currentView() {
+    return this.currentView_;
+  },
+  get cameraView() {
+    return this.cameraView_;
+  },
+  get galleryView() {
+    return this.galleryView_;
+  }
+}
+
 camera.Camera.prototype.start = function() {
+  console.log('Starting.');
   var remaining = 2;
 
   var maybeFinished = function() {
     remaining--;
+    console.log(remaining);
     if (!remaining)
       this.switchView_(this.cameraView_);
   }.bind(this);;
@@ -244,3 +258,4 @@ camera.Camera.getInstance = function() {
 document.addEventListener('DOMContentLoaded', function() {
   camera.Camera.getInstance().start();
 });
+

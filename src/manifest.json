@@ -19,7 +19,7 @@
   ],
   "app": {
     "background": {
-      "scripts": ["js/background.js"]
+      "scripts": ["js/background.js", "js/test.js", "js/test_cases.js"]
     }
   }
 }

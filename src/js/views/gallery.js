@@ -106,6 +106,10 @@ camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
     }
     for (var index = entries.length - 1; index >= 0; index--) {
       var entry = entries[index];
+      if (!entry.name) {
+        console.warn('TODO(mtomasz): Temporary fix for a strange issue.');
+        continue;
+      }
       if (entry.name.indexOf('thumb-') !== 0) {
         this.addPictureToDOM_(new camera.views.Gallery.Picture(
             entriesByName['thumb-' + entry.name], entry));

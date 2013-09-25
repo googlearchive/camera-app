@@ -41,7 +41,7 @@ camera.bg.create = function() {
     defaultLeft: Math.round((window.screen.availWidth - camera.bg.DEFAULT_WIDTH) / 2),
     defaultTop: Math.round((window.screen.availHeight - camera.bg.DEFAULT_HEIGHT) / 2),
   }, function(inAppWindow) {
-    appWindow = inAppWindow;
+    camera.bg.appWindow = inAppWindow;
   });
 };
 
