@@ -34,6 +34,20 @@ camera.test.assert = function(condition, message, onFailure) {
 };
 
 /**
+ * Run asynchronous steps sequentially.
+ * @param {Array.<function(function())>} Array of steps.
+ */
+camera.test.runSteps = function(steps) {
+  var serveNextStep = function() {
+    if (steps.length) {
+      var step = steps.shift();
+      step(serveNextStep);
+    }
+  }
+  serveNextStep();
+};
+
+/**
  * Calls the passed closure repeatedly until it returns true.
  * @param {string} message, Message to be shown.
  * @param {function()} closure Closure to be repeated.

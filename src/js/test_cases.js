@@ -29,29 +29,32 @@ camera.test.cases.basic = function(callback) {
  * Checks if the window gets opened and if the stream is available.
  */
 camera.test.cases.capture = function(callback) {
-  camera.test.waitForTrue('Wait for the window.', function() {
-    console.log(camera.bg.appWindow);
-    return !!camera.bg.appWindow;
-  }, function() {
-
-    camera.test.waitForTrue('Wait for the camera instance.', function() {
-      return camera.bg.appWindow.contentWindow.camera &&
-        camera.bg.appWindow.contentWindow.camera.Camera &&
-        camera.bg.appWindow.contentWindow.camera.Camera.getInstance();
-    }, function() {
+  camera.test.runSteps([
+    function(next) {
+      camera.test.waitForTrue('Wait for the window.', function() {
+        return !!camera.bg.appWindow;
+      }, next),
+    },
+    function(next) {
+      camera.test.waitForTrue('Wait for the camera instance.', function() {
+        return camera.bg.appWindow.contentWindow.camera &&
+          camera.bg.appWindow.contentWindow.camera.Camera &&
+          camera.bg.appWindow.contentWindow.camera.Camera.getInstance();
+      }, next);
+    },
+    function(next) {
       var instance = camera.bg.appWindow.contentWindow.camera.Camera.
-          getInstance();
-
+            getInstance();
       camera.test.waitForTrue('Wait for the Camera view.', function() {
         return instance.currentView &&
                instance.currentView == instance.cameraView;
-      }, function() {
-
-        camera.test.waitForTrue('Wait for the stream.', function() {
-          return instance.currentView.running;
-        }, callback);
-      });
-    });
-  });
+      }, next);
+    },
+    function(next) {
+      camera.test.waitForTrue('Wait for the stream.', function() {
+        return instance.currentView.running;
+      }, callback);
+    }
+  ]);
 };
 
