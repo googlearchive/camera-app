@@ -51,11 +51,17 @@ camera.views.Camera = function(context) {
    */
   this.previewInputCanvas_ = document.createElement('canvas');
 
- /**
+  /**
    * @type {boolean}
    * @private
    */
   this.running_ = false;
+
+  /**
+   * @type {boolean}
+   * @private
+   */
+  this.capturing_ = false;
 
   /**
    * The main (full screen) canvas for full quality capture.
@@ -219,6 +225,9 @@ camera.views.Camera.prototype = {
   __proto__: camera.View.prototype,
   get running() {
     return this.running_;
+  },
+  get capturing() {
+    return this.capturing_;
   }
 };
 
@@ -495,6 +504,7 @@ camera.views.Camera.prototype.synchronizeBounds_ = function() {
     // recent version of Chrome.
     this.watchdog_ = setInterval(function() {
       if (stream.ended) {
+        this._ = false;
         onDisconnected();
         clearTimeout(this.watchdog_);
         this.watchdog_ = null;
@@ -502,6 +512,7 @@ camera.views.Camera.prototype.synchronizeBounds_ = function() {
     }.bind(this), 1000);
     this.video_.src = window.URL.createObjectURL(stream);
     this.video_.play();
+    this.capturing_ = true;
     var onAnimationFrame = function() {
       if (!this.running_)
         return;
@@ -520,6 +531,7 @@ camera.views.Camera.prototype.synchronizeBounds_ = function() {
  */
 camera.views.Camera.prototype.stop = function() {
   this.running_ = false;
+  this.capturing_ = false;
   this.video_.pause();
   this.video_.src = '';
   if (this.watchdog_) {

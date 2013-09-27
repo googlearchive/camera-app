@@ -18,8 +18,8 @@ On Chromebooks, you may want to right-click and choose 'Save Link As', then inst
 Automated tests
 ---------------
 
-To perform automated tests on Linux you will need following extra packages: gstreamer-tools, v4l2loopback, python. Other operating systems are not supported at this moment.
-Run tests via tests/camera_tests.py
+To perform automated tests on Linux, go to camera/tests/ and run camera_tests.py. Note, that these tests are experimental.
+The script must be able to execute sudo without a password.
 
 Shortcuts
 ---------

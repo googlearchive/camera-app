@@ -53,7 +53,7 @@ camera.test.cases.capture = function(callback) {
     },
     function(next) {
       camera.test.waitForTrue('Wait for the stream.', function() {
-        return instance.currentView.running;
+        return instance.currentView.capturing;
       }, callback);
     }
   ]);
@@ -88,19 +88,19 @@ camera.test.cases.restore = function(callback) {
     },
     function(next) {
       camera.test.waitForTrue('Wait for the stream.', function() {
-        return instance.currentView.running;
+        return instance.currentView.capturing;
       }, next);
     },
     function(next) {
       camera.test.command('detach', 'Detach the camera device.');
       camera.test.waitForTrue('Wait until the end of the stream.', function() {
-        return !instrance.currentView.running;
+        return !instance.currentView.capturing;
       }, next);
     },
     function(next) {
       camera.test.command('attach', 'Attach the camera device.');
       camera.test.waitForTrue('Wait for the stream.', function() {
-        return instance.currentView.running;
+        return instance.currentView.capturing;
       }, callback)
     }
   ]);
