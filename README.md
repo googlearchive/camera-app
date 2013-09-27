@@ -7,13 +7,19 @@ Supported systems
 -----------------
 Should work on any operating system, especially on Chrome OS.
 
-Testing
--------
+Installing
+----------
 
 Camera App is not ready yet. It does not save pictures. However, you can test it by downloading the crx on your Chromebook.
-[Download](https://github.com/GoogleChrome/camera-app/blob/master/build/camera.crx?raw=true)
+[Download](https://github.com/GoogleChrome/camera-app/blob/master/build-packages/camera.crx?raw=true)
 
 On Chromebooks, you may want to right-click and choose 'Save Link As', then install it from Files App to avoid security messages.
+
+Automated tests
+---------------
+
+To perform automated tests on Linux you will need following extra packages: gstreamer-tools, v4l2loopback, python. Other operating systems are not supported at this moment.
+Run tests via tests/camera_tests.py
 
 Shortcuts
 ---------
