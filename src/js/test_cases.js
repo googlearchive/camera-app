@@ -29,11 +29,12 @@ camera.test.cases.basic = function(callback) {
  * Checks if the window gets opened and if the stream is available.
  */
 camera.test.cases.capture = function(callback) {
+  var instance;
   camera.test.runSteps([
     function(next) {
       camera.test.waitForTrue('Wait for the window.', function() {
         return !!camera.bg.appWindow;
-      }, next),
+      }, next);
     },
     function(next) {
       camera.test.waitForTrue('Wait for the camera instance.', function() {
@@ -43,7 +44,7 @@ camera.test.cases.capture = function(callback) {
       }, next);
     },
     function(next) {
-      var instance = camera.bg.appWindow.contentWindow.camera.Camera.
+      instance = camera.bg.appWindow.contentWindow.camera.Camera.
             getInstance();
       camera.test.waitForTrue('Wait for the Camera view.', function() {
         return instance.currentView &&
@@ -54,6 +55,53 @@ camera.test.cases.capture = function(callback) {
       camera.test.waitForTrue('Wait for the stream.', function() {
         return instance.currentView.running;
       }, callback);
+    }
+  ]);
+};
+
+/**
+ * Checks if the stream is restored after the camera is gone for some time.
+ * This will happen, when a chromebook is suspended.
+ */
+camera.test.cases.restore = function(callback) {
+  var instance;
+  camera.test.runSteps([
+    function(next) {
+      camera.test.waitForTrue('Wait for the window.', function() {
+        return !!camera.bg.appWindow;
+      }, next);
+    },
+    function(next) {
+      camera.test.waitForTrue('Wait for the camera instance.', function() {
+        return camera.bg.appWindow.contentWindow.camera &&
+          camera.bg.appWindow.contentWindow.camera.Camera &&
+          camera.bg.appWindow.contentWindow.camera.Camera.getInstance();
+      }, next);
+    },
+    function(next) {
+      instance = camera.bg.appWindow.contentWindow.camera.Camera.
+            getInstance();
+      camera.test.waitForTrue('Wait for the Camera view.', function() {
+        return instance.currentView &&
+               instance.currentView == instance.cameraView;
+      }, next);
+    },
+    function(next) {
+      camera.test.waitForTrue('Wait for the stream.', function() {
+        return instance.currentView.running;
+      }, next);
+    },
+    function(next) {
+      camera.test.command('detach', 'Detach the camera device.');
+      camera.test.waitForTrue('Wait until the end of the stream.', function() {
+        return !instrance.currentView.running;
+      }, next);
+    },
+    function(next) {
+      camera.test.command('attach', 'Attach the camera device.');
+      camera.test.waitForTrue('Wait for the stream.', function() {
+        return instance.currentView.running;
+      }, callback)
     }
   ]);
 };

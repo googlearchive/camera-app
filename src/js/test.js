@@ -66,6 +66,15 @@ camera.test.waitForTrue = function(message, closure, callback) {
 };
 
 /**
+ * @param {string} name Command name.
+ * @param {string=} opt_message Command message.
+ */
+camera.test.command = function(name, opt_message) {
+  this.socket_.send(
+      'COMMAND ' + name + (opt_message ? ' ' + opt_message : ''));
+};
+
+/**
  * @param {string=} opt_message Success message.
  */
 camera.test.info = function(opt_message) {

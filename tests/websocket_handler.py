@@ -14,10 +14,11 @@ STATUS_INTERNAL_ERROR = -3
 STATUS_SUCCESS = 0
 
 class Server(SocketServer.ThreadingTCPServer):
-  def __init__(self, server_address, RequestHandlerClass, callback, test_case):
+  def __init__(self, server_address, RequestHandlerClass, callback, command_callback, test_case):
     self.allow_reuse_address = True
     SocketServer.ThreadingTCPServer.__init__(self, server_address, RequestHandlerClass)
     self.callback = callback
+    self.command_callback = command_callback
     self.test_case = test_case
 
   def terminate(self):
@@ -145,6 +146,9 @@ class Handler(SocketServer.StreamRequestHandler):
         return STATUS_SUCCESS
     if command == 'FAILURE':
       return STATUS_FAILURE
+    if command == 'COMMAND':
+      command_array = line.split(' ', 2)
+      self.server.command_callback(command_array[1])
 
     return status
 

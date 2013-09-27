@@ -5,7 +5,7 @@ import subprocess
 import sys
 
 # Names of test cases requiring a camera plugged in.
-test_cases = ['basic', 'capture']
+test_cases = ['basic', 'capture', 'restore']
 
 # Timeout per test case.
 timeout = 30
