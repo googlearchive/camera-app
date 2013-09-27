@@ -35,7 +35,7 @@ chrome_path = 'google-chrome'
 chrome_binary = 'chrome'
 
 # Location of the Camera app.
-camera_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../src')
+camera_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../build/tests')
 
 # Step 0. Set the timeout.
 def timeout(signum, frame):
