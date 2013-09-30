@@ -202,7 +202,7 @@ camera.Tracker.prototype = {
    */
   get face() {
     return this.face_;
-  } 
+  }
 };
 
 /**

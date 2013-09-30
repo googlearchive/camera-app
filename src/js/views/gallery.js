@@ -58,7 +58,7 @@ camera.views.Gallery.Picture = function(thumbnailEntry, imageEntry) {
    * @private
    */
   this.thumbnailEntry_ = thumbnailEntry;
-  
+
   /**
    * @type {FileEntry}
    * @private
@@ -99,7 +99,7 @@ camera.views.Gallery.DOMPicture = function(picture, element) {
    * @private
    */
   this.picture_ = picture;
-  
+
   /**
    * @type {HTMLElement}
    * @private
@@ -411,7 +411,7 @@ camera.views.Gallery.prototype.addPictureToDOM_ = function(picture) {
 
 /**
  * Saves the picture to the passed file name in the internal storage.
- * 
+ *
  * @param {string} fileName Name of the file in the internal storage.
  * @param {string} dataURL Data of the image to be saved.
  * @param {function(FileEntry)} onSuccess Success callback with the entry of
