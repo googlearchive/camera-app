@@ -156,7 +156,7 @@ camera.views.Camera = function(context) {
    */
   this.collapseTimer_ = null;
   
- /**
+  /**
    * Set to true before the ribbon is displayed. Used to render the ribbon's
    * frames while it is not yet displayed, so the previews have some image
    * as soon as possible.
@@ -164,6 +164,9 @@ camera.views.Camera = function(context) {
    * @private
    */
   this.ribbonInitialization_ = true;
+
+  // End of properties, seal the object.
+  Object.seal(this);
 
   // Insert the main canvas to its container.
   document.querySelector('#main-canvas-wrapper').appendChild(this.mainCanvas_);

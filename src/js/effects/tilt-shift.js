@@ -17,6 +17,7 @@ camera.effects.TiltShift = function(tracker) {
   camera.Effect.call(this, tracker);
   this.amount_ = 75;
   this.gradient_ = 2;
+  Object.seal(this);
 };
 
 camera.effects.TiltShift.prototype = {

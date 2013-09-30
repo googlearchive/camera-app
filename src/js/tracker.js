@@ -27,6 +27,9 @@ camera.Tracker = function(input) {
    * @private
    */
   this.busy_ = false;
+
+  // End of properties. Seal the object.
+  Object.seal(this);
 };
 
 /**
@@ -44,6 +47,8 @@ camera.Tracker.Face = function() {
   this.targetHeight_ = 0.3;
   this.confidence_ = 0;
   this.targetConfidence_ = 0;
+
+  Object.seal(this);
 };
 
 camera.Tracker.Face.prototype = {

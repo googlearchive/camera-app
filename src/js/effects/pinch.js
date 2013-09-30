@@ -21,6 +21,7 @@ camera.effects.Pinch = function(tracker, offset, size, strength) {
   this.offset_ = offset;
   this.size_ = size;
   this.strength_ = strength;
+  Object.seal(this);
 };
 
 camera.effects.Pinch.prototype = {

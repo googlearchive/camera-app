@@ -42,6 +42,9 @@ camera.Processor = function(input, output, opt_mode) {
    * @type {camera.Effect}
    */
   this.effect_ = null;
+
+  // End of properties. Seal the object.
+  Object.seal(this);
 };
 
 /**

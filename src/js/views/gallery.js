@@ -38,6 +38,9 @@ camera.views.Gallery = function(context) {
    * @type {number}
    */
   this.lastFileId_ = 0;
+
+  // End of properties, seal the object.
+  Object.seal(this);
 };
 
 camera.views.Gallery.Picture = function(thumbnailEntry, imageEntry) {

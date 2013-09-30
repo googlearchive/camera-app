@@ -16,6 +16,7 @@ camera.effects = camera.effects || {};
 camera.effects.Cinema = function(tracker) {
   camera.Effect.call(this, tracker);
   this.mode_ = 0;
+  Object.seal(this);
 };
 
 camera.effects.Cinema.prototype = {

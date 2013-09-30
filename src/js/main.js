@@ -46,6 +46,9 @@ camera.Camera = function() {
    */
   this.keyBuffer_ = '';
 
+  // End of properties. Seal the object.
+  Object.seal(this);
+
   // Handle key presses to make the Camera app accessible via the keyboard.
   document.body.addEventListener('keydown', this.onKeyPressed_.bind(this));
   
@@ -115,12 +118,9 @@ camera.Camera.prototype = {
 }
 
 camera.Camera.prototype.start = function() {
-  console.log('Starting.');
   var remaining = 2;
-
   var maybeFinished = function() {
     remaining--;
-    console.log(remaining);
     if (!remaining)
       this.switchView_(this.cameraView_);
   }.bind(this);;

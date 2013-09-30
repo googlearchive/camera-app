@@ -36,12 +36,14 @@ camera.bg.create = function() {
     id: 'main',
     frame: 'none',
     hidden: true,  // Will be shown from main.js once loaded.
-    defaultWidth: camera.bg.DEFAULT_WIDTH,
-    defaultHeight: camera.bg.DEFAULT_HEIGHT,
-    defaultLeft: Math.round(
-        (window.screen.availWidth - camera.bg.DEFAULT_WIDTH) / 2),
-    defaultTop: Math.round(
-        (window.screen.availHeight - camera.bg.DEFAULT_HEIGHT) / 2),
+    bounds: {
+      width: camera.bg.DEFAULT_WIDTH,
+      height: camera.bg.DEFAULT_HEIGHT,
+      left: Math.round(
+          (window.screen.availWidth - camera.bg.DEFAULT_WIDTH) / 2),
+      top: Math.round(
+          (window.screen.availHeight - camera.bg.DEFAULT_HEIGHT) / 2)
+    },
   }, function(inAppWindow) {
     camera.bg.appWindow = inAppWindow;
   });

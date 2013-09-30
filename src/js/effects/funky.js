@@ -16,6 +16,7 @@ camera.effects = camera.effects || {};
 camera.effects.Funky = function(tracker) {
   camera.Effect.call(this, tracker);
   this.amount_ = 6;
+  Object.seal(this);
 };
 
 camera.effects.Funky.prototype = {

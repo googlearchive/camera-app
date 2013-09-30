@@ -18,6 +18,7 @@ camera.effects.Vintage = function(tracker) {
   this.brightness_ = 0;
   this.vibrance_ = -1;
   this.contrast_ = 0;
+  Object.seal(this);
 };
 
 camera.effects.Vintage.prototype = {

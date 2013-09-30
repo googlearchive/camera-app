@@ -16,6 +16,7 @@ camera.effects = camera.effects || {};
 camera.effects.Newspaper = function(tracker) {
   camera.Effect.call(this, tracker);
   this.amount_ = 3;
+  Object.seal(this);
 };
 
 camera.effects.Newspaper.prototype = {

@@ -16,6 +16,7 @@ camera.effects = camera.effects || {};
 camera.effects.Colorize = function(tracker) {
   camera.Effect.call(this, tracker);
   this.hue_ = 0.5;
+  Object.seal(this);
 };
 
 camera.effects.Colorize.prototype = {
