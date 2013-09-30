@@ -15,7 +15,14 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Colorize = function(tracker) {
   camera.Effect.call(this, tracker);
+
+  /**
+   * @param {number}
+   * @pribate
+   */
   this.hue_ = 0.5;
+
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 

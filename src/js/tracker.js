@@ -37,17 +37,67 @@ camera.Tracker = function(input) {
  * @constructor
  */
 camera.Tracker.Face = function() {
+  /**
+   * @type {number}
+   * @private
+   */
   this.x_ = 0;
+
+  /**
+   * @type {number}
+   * @private
+   */
   this.y_ = 0;
+
+  /**
+   * @type {number}
+   * @private
+   */
   this.targetX_ = 0;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.targetY_ = 0;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.width_ = 0.3;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.height_ = 0.3;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.targetWidth_ = 0.3; 
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.targetHeight_ = 0.3;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.confidence_ = 0;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.targetConfidence_ = 0;
 
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 

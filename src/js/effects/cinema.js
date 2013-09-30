@@ -15,7 +15,14 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Cinema = function(tracker) {
   camera.Effect.call(this, tracker);
+
+  /**
+   * @param {number}
+   * @private
+   */
   this.mode_ = 0;
+
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 

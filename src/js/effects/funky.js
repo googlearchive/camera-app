@@ -15,7 +15,14 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Funky = function(tracker) {
   camera.Effect.call(this, tracker);
+
+  /**
+   * @param {number}
+   * @private
+   */
   this.amount_ = 6;
+
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 

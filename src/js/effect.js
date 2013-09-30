@@ -8,6 +8,10 @@ var camera = camera || {};
  * @constructor
  */
 camera.Effect = function(tracker) {
+  /**
+   * @type {camera.Tracker}
+   * @private
+   */
   this.tracker_ = tracker;
 };
 

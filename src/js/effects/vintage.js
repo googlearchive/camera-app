@@ -15,9 +15,26 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Vintage = function(tracker) {
   camera.Effect.call(this, tracker);
+
+  /**
+   * @type {number}
+   * @private
+   */
   this.brightness_ = 0;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.vibrance_ = -1;
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.contrast_ = 0;
+
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 

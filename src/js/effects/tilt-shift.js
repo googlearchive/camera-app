@@ -15,8 +15,20 @@ camera.effects = camera.effects || {};
  */
 camera.effects.TiltShift = function(tracker) {
   camera.Effect.call(this, tracker);
+  
+  /**
+   * @type {number}
+   * @private
+   */
   this.amount_ = 75;
+
+  /**
+   * @type {number}
+   * @private
+   */
   this.gradient_ = 2;
+  
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 

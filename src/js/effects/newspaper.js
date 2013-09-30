@@ -15,7 +15,14 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Newspaper = function(tracker) {
   camera.Effect.call(this, tracker);
+  
+  /**
+   * @param {number}
+   * @private
+   */
   this.amount_ = 3;
+
+  // End of properties. Seal the object.
   Object.seal(this);
 };
 
