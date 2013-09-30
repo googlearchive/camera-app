@@ -1,6 +1,6 @@
 body {
-  background-color: black;
   -webkit-box-align: center;
+  background-color: black;
   bottom: 0;
   display: -webkit-box;
   left: 0;
@@ -16,14 +16,14 @@ button {
 
 #header {
   -webkit-app-region: drag;
-  padding: 8px;
-  position: absolute;
-  pointer-events: auto;
+  -webkit-box-pack: end;
+  display: -webkit-box;
   left: 0;
+  padding: 8px;
+  pointer-events: auto;
+  position: absolute;
   right: 0;
   top: 0;
-  display: -webkit-box;
-  -webkit-box-pack: end;
   z-index: 100;
 }
 
@@ -43,8 +43,8 @@ button {
   background-color: rgba(0, 0, 0, 0.75);
   background-position: center center;
   background-repeat: no-repeat;
-  padding: 0;
   border: none;
+  padding: 0;
   height: 32px;
   width: 32px;
   margin: 0 2px;
@@ -88,22 +88,22 @@ body.expanded #corner-buttons button {
 }
 
 #side-buttons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: -webkit-box;
   -webkit-box-align: center;
   -webkit-box-pack: end;
+  bottom: 0;
+  display: -webkit-box;
+  left: 0;
   pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 #side-buttons .gallery-button,
 #corner-buttons .gallery-button {
   background-image: -webkit-image-set(
-      url('../images/topbar_button_gallery.png') 1x,
-      url('../images/2x/topbar_button_gallery.png') 2x);
+      url(../images/topbar_button_gallery.png) 1x,
+      url(../images/2x/topbar_button_gallery.png) 2x);
 }
 
 #side-buttons button {
@@ -111,16 +111,16 @@ body.expanded #corner-buttons button {
 }
 
 #corner-buttons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: -webkit-box;
   -webkit-box-align: end;
   -webkit-box-pack: end;
+  bottom: 0;
+  display: -webkit-box;
+  left: 0;
   padding: 10px;
   pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 #corner-buttons button {
@@ -138,14 +138,14 @@ body.gallery #corner-buttons .gallery-button {
 
 #header #maximize-button {
   background-image: -webkit-image-set(
-      url('../images/topbar_button_maximize.png') 1x,
-      url('../images/2x/topbar_button_maximize.png') 2x);
+      url(../images/topbar_button_maximize.png) 1x,
+      url(../images/2x/topbar_button_maximize.png) 2x);
 }
 
 #header #close-button {
   background-image: -webkit-image-set(
-      url('../images/topbar_button_close.png') 1x,
-      url('../images/2x/topbar_button_close.png') 2x);
+      url(../images/topbar_button_close.png) 1x,
+      url(../images/2x/topbar_button_close.png) 2x);
 }
 
 
@@ -168,26 +168,26 @@ body.gallery #toolbar {
 
 #error {
   -webkit-box-align: center;
-  -webkit-box-pack: center;
   -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
   bottom: 0;
-  display: none;
   color: white;
+  display: none;
   font-size: 18px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 #error .icon {
-  width: 180px;
-  height: 120px;
   background-image: url(../images/no_camera.svg);
-  background-repeat: no-repeat;
   background-position: center center;
+  background-repeat: no-repeat;
+  height: 120px;
   margin-bottom: 20px;
+  width: 180px;
 }
 
 body.has-error #error {
@@ -202,13 +202,13 @@ canvas {
   display: -webkit-box;
   list-style-type: none;
   margin: 0;
-  padding: 0 0 5px;
   overflow: auto;
+  padding: 0 0 5px;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
   height: 6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -221,10 +221,10 @@ canvas {
 }
 
 #effects li {
-  -webkit-margin-end: 10px;
-  -webkit-box-orient: vertical;
   -webkit-box-align: center;
+  -webkit-box-orient: vertical;
   -webkit-box-pack: center;
+  -webkit-margin-end: 10px;
   display: -webkit-box;
   padding: 0;
 }
@@ -265,9 +265,9 @@ canvas {
 }
 
 #buttons {
-  display: -webkit-box;
   -webkit-box-align: center;
   -webkit-box-pack: center;
+  display: -webkit-box;
   margin-bottom: 5px;
 }
 
@@ -280,8 +280,8 @@ canvas {
   background-image: -webkit-image-set(
     url(../images/camera_button_picture.png) 1x,
     url(../images/2x/camera_button_picture.png) 2x);
-  width: 73px;
   height: 37px;
+  width: 73px;
 }
 
 #buttons #take-picture:hover {
@@ -312,11 +312,11 @@ body.expanded:not(.has-error) #toolbar {
   bottom: 0;
   left: 0;
   opacity: 0;
-  right: 0;
   pointer-events: none;
   position: absolute;
-  transition: opacity 50ms linear;
+  right: 0;
   top: 0;
+  transition: opacity 50ms linear;
 }
 
 body.show-shutter #shutter {
@@ -324,12 +324,12 @@ body.show-shutter #shutter {
 }
 
 #picture-preview {
-  top: 25%;
-  left: 25%;
-  right: 25%;
   bottom: 25%;
-  position: absolute;
+  left: 25%;
   pointer-events: none;
+  position: absolute;
+  right: 25%;
+  top: 25%;
 }
 
 body.gallery #picture-preview {
@@ -358,14 +358,14 @@ body.gallery #picture-preview {
 #gallery {
   -webkit-box-align: start;
   -webkit-box-pack: start;
-  top: 0;
-  left: 0;
-  right: 0;
   bottom: 0;
-  overflow: auto;
-  margin: 10px;
-  position: absolute;
   display: -webkit-box;
+  left: 0;
+  margin: 10px;
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 #gallery .padder {
