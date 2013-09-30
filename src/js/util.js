@@ -13,8 +13,8 @@ camera.util = camera.util || {};
  * animation is done. The class is released once the animation is finished.
  * If the class name is already set, then calls onCompletion immediately.
  *
- * @param {Element} classElement Element to be applied the class on.
- * @param {Element} animationElement Element to be animated.
+ * @param {HTMLElement} classElement Element to be applied the class on.
+ * @param {HTMLElement} animationElement Element to be animated.
  * @param {string} className Class name to be added.
  * @param {number} timeout Animation timeout in milliseconds.
  * @param {=function()} opt_onCompletion Completion callback.
@@ -41,7 +41,7 @@ camera.util.setAnimationClass = function(
 /**
  * Waits for animation completion and calls the callback.
  *
- * @param {Element} animationElement Element to be animated.
+ * @param {HTMLElement} animationElement Element to be animated.
  * @param {number} timeout Timeout for completion.
  * @param {function()} onCompletion Completion callback.
  */
@@ -62,7 +62,7 @@ camera.util.waitForAnimationCompletion = function(
 /**
  * Waits for transition completion and calls the callback.
  *
- * @param {Element} transitionElement Element to be transitioned.
+ * @param {HTMLElement} transitionElement Element to be transitioned.
  * @param {number} timeout Timeout for completion.
  * @param {function()} onCompletion Completion callback.
  */
@@ -84,7 +84,7 @@ camera.util.waitForTransitionCompletion = function(
 /**
  * Scrolls the parent of the element so the element is visible.
  *
- * @param {Element} element Element to be visible.
+ * @param {HTMLElement} element Element to be visible.
  * @param {=Element} opt_parent Parent element to be scrolled. If not provided,
  *     then parent of the passed element to be visible willbe used.
  */

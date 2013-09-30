@@ -4,7 +4,7 @@
 var camera = camera || {};
 
 /**
- * @private {camera.Tracker} tracker
+ * @param {camera.Tracker} tracker Head tracker object.
  * @constructor
  */
 camera.Effect = function(tracker) {

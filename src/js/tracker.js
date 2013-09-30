@@ -6,7 +6,7 @@ var camera = camera || {};
 /**
  * Detects and tracks faces on the input stream.
  *
- * @private {Canvas} input Input canvas.
+ * @param {Canvas} input Input canvas.
  * @constructor
  */
 camera.Tracker = function(input) {
@@ -102,63 +102,86 @@ camera.Tracker.Face = function() {
 };
 
 camera.Tracker.Face.prototype = {
+  /**
+   * Returns the current interpolated x coordinate of the head.
+   * @return {number} Position as fraction (0-1) of the width.
+   */
   get x() {
     return this.x_;
   },
+
+  /**
+   * Returns the current interpolated y coordinate of the head.
+   * @return {number} Position as fraction (0-1) of the width.
+   */
   get y() {
     return this.y_;
   },
+
+  /**
+   * Returns the current interpolated width of the head.
+   * @return {number} Width as fraction (0-1) of the image's width.
+   */
   get width() {
     return this.width_;
   },
+
+  /**
+   * Returns the current interpolated height of the head.
+   * @return {number} Height as fraction (0-1) of the image's height.
+   */
   get height() {
     return this.height_;
   },
+
+  /**
+   * Returns the current interpolated confidence of detection.
+   * @return {number} Confidence level.
+   */
   get confidence() {
     return this.confidence_;
+  },
+
+  /**
+   * Sets the target x coordinate of the face.
+   * @param {number} x Position as a fraction of the width (0-1).
+   */
+  set targetX(x) {
+    this.targetX_ = x;
+  },
+
+  /**
+   * Sets the target y coordinate of the face.
+   * @param {number} y Position as a fraction of the height (0-1).
+   */
+  set targetY(y) {
+    this.targetY_ = y;
+  },
+
+  /**
+   * Sets the target width of the face.
+   * @param {number} width Width as a fraction of the image's width (0-1).
+   */
+  set targetWidth(width) {
+    this.targetWidth_ = width;
+  },
+
+  /**
+   * Sets the target height of the face.
+   * @param {number} height Height as a fraction of the image's height (0-1).
+   */
+  set targetHeight(height) {
+    this.targetHeight_ = height;
+  },
+
+  /**
+   * Sets the target confidence level.
+   * @param {number} Confidence level.
+   */
+  set targetConfidence(confidence) {
+    this.targetConfidence_ = confidence;
   }
-};
-
-/**
- * Sets the target x coordinate of the face.
- * @param {number} x Position as a fraction of the width (0-1).
- */
-camera.Tracker.Face.prototype.setTargetX = function(x) {
-  this.targetX_ = x;
-};
-
-
-/**
- * Sets the target y coordinate of the face.
- * @param {number} y Position as a fraction of the height (0-1).
- */
-camera.Tracker.Face.prototype.setTargetY = function(y) {
-  this.targetY_ = y;
-};
-
-/**
- * Sets the target width of the face.
- * @param {number} width Width as a fraction of the image's width (0-1).
- */
-camera.Tracker.Face.prototype.setTargetWidth = function(width) {
-  this.targetWidth_ = width;
-};
-
-/**
- * Sets the target height of the face.
- * @param {number} height Height as a fraction of the image's height (0-1).
- */
-camera.Tracker.Face.prototype.setTargetHeight = function(height) {
-  this.targetHeight_ = height;
-};
-
-/**
- * Sets the target confidence level.
- * @param {number} Confidence level.
- */
-camera.Tracker.Face.prototype.setTargetConfidence = function(confidence) {
-  this.targetConfidence_ = confidence;
-};
+}
 
 /**
  * Updates the detected face by applying some interpolation.
@@ -170,6 +193,16 @@ camera.Tracker.Face.prototype.update = function() {
   this.width_ += (this.targetWidth_ - this.width_) * step;
   this.height_ += (this.targetHeight_ - this.height_) * step;
   this.confidence_ += (this.targetConfidence_ - this.confidence_) * step;
+};
+
+camera.Tracker.prototype = {
+ /**
+   * Returns detected faces by the last call of update().
+   * @return {camera.Tracker.Face}
+   */
+  get face() {
+    return this.face_;
+  } 
 };
 
 /**
@@ -193,13 +226,13 @@ camera.Tracker.prototype.detect = function() {
         return a.confidence < b.confidence;
       });
 
-      this.face_.setTargetX(result[0].x / this.input_.width);
-      this.face_.setTargetY(result[0].y / this.input_.height);
-      this.face_.setTargetWidth(result[0].width / this.input_.width);
-      this.face_.setTargetHeight(result[0].height / this.input_.height);
-      this.face_.setTargetConfidence(1.0);
+      this.face_.targetX = result[0].x / this.input_.width;
+      this.face_.targetY = result[0].y / this.input_.height;
+      this.face_.targetWidth = result[0].width / this.input_.width;
+      this.face_.targetHeight = result[0].height / this.input_.height;
+      this.face_.targetConfidence = 1;
     } else {
-      this.face_.setTargetConfidence(0);
+      this.face_.targetConfidence = 0;
     }
     this.busy_ = false;
   }.bind(this));
@@ -210,13 +243,5 @@ camera.Tracker.prototype.detect = function() {
  */
 camera.Tracker.prototype.update = function() {
   this.face_.update();
-};
-
-/**
- * Returns detected faces by the last call of update().
- * @return {camera.Tracker.Face}
- */
-camera.Tracker.prototype.getFace = function() {
-  return this.face_;
 };
 

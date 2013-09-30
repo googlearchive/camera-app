@@ -36,6 +36,7 @@ camera.views.Gallery = function(context) {
 
   /**
    * @type {number}
+   * @private
    */
   this.lastFileId_ = 0;
 
@@ -43,9 +44,29 @@ camera.views.Gallery = function(context) {
   Object.seal(this);
 };
 
+/**
+ * Wraps an image file as well as the thumbnail file of a picture in the
+ * gallery.
+ *
+ * @type {FileEntry} thumbnailEntry Thumbnail file entry.
+ * @type {FileEntry} imageEntry Image file entry.
+ * @construct
+ */
 camera.views.Gallery.Picture = function(thumbnailEntry, imageEntry) {
+  /**
+   * @type {FileEntry}
+   * @private
+   */
   this.thumbnailEntry_ = thumbnailEntry;
+  
+  /**
+   * @type {FileEntry}
+   * @private
+   */
   this.imageEntry_ = imageEntry;
+
+  // End of properties. Seal the object.
+  Object.seal(this);
 };
 
 camera.views.Gallery.Picture.prototype = {
@@ -63,9 +84,30 @@ camera.views.Gallery.Picture.prototype = {
   }
 };
 
+
+/**
+ * Represents a picture attached to the DOM by combining the picture data
+ * object with the DOM element..
+ *
+ * @type {camera.views.Gallery.Picture} picture Picture data.
+ * @type {HTMLElement} element DOM element holding the picture.
+ * @construct
+ */
 camera.views.Gallery.DOMPicture = function(picture, element) {
+  /**
+   * @type {camera.views.Gallery.Picture}
+   * @private
+   */
   this.picture_ = picture;
+  
+  /**
+   * @type {HTMLElement}
+   * @private
+   */
   this.element_ = element;
+
+  // End of properties. Seal the object.
+  Object.seal(this);
 };
 
 camera.views.Gallery.DOMPicture.prototype = {
@@ -98,6 +140,11 @@ camera.views.Gallery.prototype.initialize = function(callback) {
       });
 };
 
+/**
+ * Loads the pictures from the internal storage and adds them to DOM.
+ * @param {function()} Completion callback.
+ * @private
+ */
 camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
   var dirReader = this.fileSystem_.root.createReader();
   var entries = [];
@@ -158,6 +205,11 @@ camera.views.Gallery.prototype.onLeave = function() {
   document.body.classList.remove('gallery');
 };
 
+/**
+ * Sets the index of the currently selected picture.
+ * @param {number} index Index of the picture.
+ * @private
+ */
 camera.views.Gallery.prototype.setCurrentIndex_ = function(index) {
   if (this.currentIndex_ !== null)
     this.pictures_[this.currentIndex_].element.classList.remove('selected');
@@ -169,6 +221,12 @@ camera.views.Gallery.prototype.setCurrentIndex_ = function(index) {
                             document.querySelector('#gallery'));
 };
 
+/**
+ * Deletes the picture with the specified index by removing it from DOM and
+ * removing from the internal storage.
+ * @param {number} index Index of the picture.
+ * @private
+ */
 camera.views.Gallery.prototype.deletePicture_ = function(index) {
   // TODO(mtomasz): Improve class names, having DOMPicture and Picutre is
   // very confusing.
@@ -210,7 +268,12 @@ camera.views.Gallery.prototype.deletePicture_ = function(index) {
   }, onError);
 };
 
-camera.views.Gallery.prototype.showPicture_ = function(index) {
+/**
+ * Saves the picture with the specified index to the external storage.
+ * @param {number} index Index of the picture.
+ * @private
+ */
+camera.views.Gallery.prototype.exportPicture_ = function(index) {
   var picture = this.pictures_[index];
 
   var accepts = [{
@@ -237,9 +300,7 @@ camera.views.Gallery.prototype.showPicture_ = function(index) {
         if (!fileEntry)
           return;
         fileEntry.createWriter(function(fileWriter) {
-          fileWriter.onwrite = function() {
-            console.log('Saved.');
-          };
+          fileWriter.onwrite = function() {};
           fileWriter.onerror = onError;
           // Blob has to be a Blob instance to be saved.
           var array = new Uint8Array(data.length);
@@ -312,7 +373,7 @@ camera.views.Gallery.prototype.onKeyPressed = function(event) {
       this.deletePicture_(this.currentIndex_);
       break;
     case 'Enter':
-      this.showPicture_(this.currentIndex_);
+      this.exportPicture_(this.currentIndex_);
       break;
   }
 };
@@ -320,6 +381,7 @@ camera.views.Gallery.prototype.onKeyPressed = function(event) {
 /**
  * Adds a picture to the gallery.
  * @param {string} dataURL Data of the picture.
+ * @private
  */
 camera.views.Gallery.prototype.addPictureToDOM_ = function(picture) {
   var index = this.pictures_.length;
@@ -341,12 +403,22 @@ camera.views.Gallery.prototype.addPictureToDOM_ = function(picture) {
   img.addEventListener('click', function() {
     var index = parseInt(img.getAttribute('data-index'));
     if (this.currentIndex_ == index)
-      this.showPicture_(index);
+      this.exportPicture_(index);
     else
       this.setCurrentIndex_(index);
   }.bind(this));
 };
 
+/**
+ * Saves the picture to the passed file name in the internal storage.
+ * 
+ * @param {string} fileName Name of the file in the internal storage.
+ * @param {string} dataURL Data of the image to be saved.
+ * @param {function(FileEntry)} onSuccess Success callback with the entry of
+ *     the saved picture.
+ * @param {function(FileError)} onFailure Failure callback.
+ * @private
+ */
 camera.views.Gallery.prototype.savePictureToFile_ = function(
     fileName, dataURL, onSuccess, onFailure) {
   this.fileSystem_.root.getFile(

@@ -99,6 +99,9 @@ camera.Camera.Context = function(onPictureTaken, onError, onErrorRecovered) {
    * @param {function(string)}
    */
   this.onErrorRecovered = onErrorRecovered;
+
+  // End of properties. Seal the object.
+  Object.seal(this);
 };
 
 camera.Camera.Context.prototype = {
@@ -117,13 +120,16 @@ camera.Camera.prototype = {
   }
 }
 
+/**
+ * Starts the app by initializing views and showing the camera view.
+ */
 camera.Camera.prototype.start = function() {
   var remaining = 2;
   var maybeFinished = function() {
     remaining--;
     if (!remaining)
       this.switchView_(this.cameraView_);
-  }.bind(this);;
+  }.bind(this);
 
   this.cameraView_.initialize(maybeFinished);
   this.galleryView_.initialize(maybeFinished);
@@ -223,10 +229,9 @@ camera.Camera.prototype.onPictureTaken_ = function(dataURL) {
 camera.Camera.prototype.onError_ = function(identifier, message, opt_hint) {
   document.body.classList.add('has-error');
   this.context_.hasError = true;
-  document.querySelector('#error-msg').textContent =
-    message;
+  document.querySelector('#error-msg').textContent = message;
   document.querySelector('#error-msg-hint').textContent =
-    opt_hint ? opt_hint : '';
+      opt_hint ? opt_hint : '';
 };
 
 camera.Camera.prototype.onErrorRecovered_ = function(identifier) {

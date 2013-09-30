@@ -40,9 +40,7 @@ button {
 #header button,
 #side-buttons button,
 #corner-buttons button {
-  background-color: rgba(0, 0, 0, 0.75);
-  background-position: center center;
-  background-repeat: no-repeat;
+  background: rgba(0, 0, 0, 0.75) center center no-repeat;
   border: none;
   padding: 0;
   height: 32px;
@@ -278,8 +276,8 @@ canvas {
 
 #buttons #take-picture {
   background-image: -webkit-image-set(
-    url(../images/camera_button_picture.png) 1x,
-    url(../images/2x/camera_button_picture.png) 2x);
+      url(../images/camera_button_picture.png) 1x,
+      url(../images/2x/camera_button_picture.png) 2x);
   height: 37px;
   width: 73px;
 }

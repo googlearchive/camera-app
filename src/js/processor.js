@@ -40,6 +40,7 @@ camera.Processor = function(input, output, opt_mode) {
 
   /**
    * @type {camera.Effect}
+   * @private
    */
   this.effect_ = null;
 
@@ -52,10 +53,10 @@ camera.Processor = function(input, output, opt_mode) {
  * quality.
  * @enum {number}
  */
-camera.Processor.Mode = {
+camera.Processor.Mode = Object.freeze({
   DEFAULT: 0,
   FAST: 1
-};
+});
 
 camera.Processor.prototype = {
   set effect(inEffect) {
@@ -93,14 +94,10 @@ camera.Processor.prototype.processFrame = function() {
       break;
   }
 
-  try {
-    this.texture_.loadContentsOf(this.input_);
-    this.output_.draw(this.texture_, textureWidth, textureHeight);
-    if (this.effect_)
-      this.effect_.filterFrame(this.output_);
-    this.output_.update();
-  } catch (e) {
-    throw e;
-  }
+  this.texture_.loadContentsOf(this.input_);
+  this.output_.draw(this.texture_, textureWidth, textureHeight);
+  if (this.effect_)
+    this.effect_.filterFrame(this.output_);
+  this.output_.update();
 };
 

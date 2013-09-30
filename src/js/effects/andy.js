@@ -26,7 +26,7 @@ camera.effects.Andy.prototype = {
  * @override
  */
 camera.effects.Andy.prototype.filterFrame = function(canvas) {
-  var face = this.tracker_.getFace();
+  var face = this.tracker_.face;
   x = canvas.width * (face.x + (face.width / 2));
   y = canvas.height * face.y;
   radius = Math.sqrt(face.width * face.width +
