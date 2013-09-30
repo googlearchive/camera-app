@@ -19,14 +19,14 @@ camera.bg.appWindow = null;
  * @type {number}
  * @const
  */
-camera.bg.DEFAULT_WIDTH = 1280;
+camera.bg.DEFAULT_WIDTH = 640;
 
 /**
  * Default height of the window in pixels.
  * @type {number}
  * @const
  */
-camera.bg.DEFAULT_HEIGHT = 720;
+camera.bg.DEFAULT_HEIGHT = 360;
 
 /**
  * Creates the window. Note, that only one window at once is supported.
@@ -38,8 +38,10 @@ camera.bg.create = function() {
     hidden: true,  // Will be shown from main.js once loaded.
     defaultWidth: camera.bg.DEFAULT_WIDTH,
     defaultHeight: camera.bg.DEFAULT_HEIGHT,
-    defaultLeft: Math.round((window.screen.availWidth - camera.bg.DEFAULT_WIDTH) / 2),
-    defaultTop: Math.round((window.screen.availHeight - camera.bg.DEFAULT_HEIGHT) / 2),
+    defaultLeft: Math.round(
+        (window.screen.availWidth - camera.bg.DEFAULT_WIDTH) / 2),
+    defaultTop: Math.round(
+        (window.screen.availHeight - camera.bg.DEFAULT_HEIGHT) / 2),
   }, function(inAppWindow) {
     camera.bg.appWindow = inAppWindow;
   });
