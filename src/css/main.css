@@ -272,33 +272,24 @@ canvas {
 }
 
 #buttons button {
-  box-shadow: inset 0px -1px 6px 0px #edb9b9;
-  background: -webkit-gradient(linear, left top, left bottom,
-                               color-stop(0.05, #ff0000),
-                               color-stop(1, #d10f0f));
-  background-color: #f00000;
-  border-radius: 39px;
-  border: 3px solid #000000;
-  color: white;
-  font-weight: bold;
-  height: 39px;
-  min-width: 60px;
-  padding: 0 15px;
-}
-
-#buttons button:hover {
-  background-color: #ff0000;
-}
-
-#buttons button:active {
-  background-color: #a00000;
-  box-shadow: none;
+  background-color: transparent;
+  border: none;
 }
 
 #buttons #take-picture {
-  background-image: url(../images/take_picture.svg);
-  background-repeat: no-repeat;
-  background-position: center 7px;
+  background-image: -webkit-image-set(
+    url(../images/camera_button_picture.png) 1x,
+    url(../images/2x/camera_button_picture.png) 2x);
+  width: 73px;
+  height: 37px;
+}
+
+#buttons #take-picture:hover {
+  background-position: 0 -37px;
+}
+
+#buttons #take-picture:active {
+  background-position: 0 -74px;
 }
 
 #toolbar {
