@@ -9,7 +9,7 @@ var camera = camera || {};
 camera.effects = camera.effects || {};
 
 /**
- * @private {camera.effects.Andy} tracker
+ * @private {camera.Tracker} tracker
  * @param {number} offset Vertical offset in percents.
  * @param {number} scale Scale factor.
  * @constructor

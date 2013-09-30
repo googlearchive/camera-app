@@ -29,6 +29,10 @@ camera.Tracker = function(input) {
   this.busy_ = false;
 };
 
+/**
+ * Represents a detected face.
+ * @constructor
+ */
 camera.Tracker.Face = function() {
   this.x_ = 0;
   this.y_ = 0;
@@ -60,26 +64,50 @@ camera.Tracker.Face.prototype = {
   }
 };
 
+/**
+ * Sets the target x coordinate of the face.
+ * @param {number} x Position as a fraction of the width (0-1).
+ */
 camera.Tracker.Face.prototype.setTargetX = function(x) {
   this.targetX_ = x;
 };
 
+
+/**
+ * Sets the target y coordinate of the face.
+ * @param {number} y Position as a fraction of the height (0-1).
+ */
 camera.Tracker.Face.prototype.setTargetY = function(y) {
   this.targetY_ = y;
 };
 
+/**
+ * Sets the target width of the face.
+ * @param {number} width Width as a fraction of the image's width (0-1).
+ */
 camera.Tracker.Face.prototype.setTargetWidth = function(width) {
   this.targetWidth_ = width;
 };
 
+/**
+ * Sets the target height of the face.
+ * @param {number} height Height as a fraction of the image's height (0-1).
+ */
 camera.Tracker.Face.prototype.setTargetHeight = function(height) {
   this.targetHeight_ = height;
 };
 
+/**
+ * Sets the target confidence level.
+ * @param {number} Confidence level.
+ */
 camera.Tracker.Face.prototype.setTargetConfidence = function(confidence) {
   this.targetConfidence_ = confidence;
 };
 
+/**
+ * Updates the detected face by applying some interpolation.
+ */
 camera.Tracker.Face.prototype.update = function() {
   var step = 0.3;
   this.x_ += (this.targetX_ - this.x_) * step;
@@ -96,6 +124,7 @@ camera.Tracker.prototype.detect = function() {
   if (this.busy_)
     return;
   this.busy_ = true;
+
   var result = ccv.detect_objects({
     canvas: this.input_,//ccv.grayscale(ccv.pre(this.input_)),
     cascade: getCascade(),
@@ -121,6 +150,9 @@ camera.Tracker.prototype.detect = function() {
   }.bind(this));
 };
 
+/**
+ * Updates the face by applying some interpolation.
+ */
 camera.Tracker.prototype.update = function() {
   this.face_.update();
 };

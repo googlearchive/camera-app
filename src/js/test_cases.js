@@ -15,6 +15,7 @@ camera.test.cases = {};
 
 /**
  * Checks if the window gets opened.
+ * @param {function()} callback Completion callback.
  */
 camera.test.cases.basic = function(callback) {
   camera.test.waitForTrue('Wait for the window.', function() {
@@ -27,6 +28,7 @@ camera.test.cases.basic = function(callback) {
 
 /**
  * Checks if the window gets opened and if the stream is available.
+ * @param {function()} callback Completion callback.
  */
 camera.test.cases.capture = function(callback) {
   var instance;
@@ -62,6 +64,7 @@ camera.test.cases.capture = function(callback) {
 /**
  * Checks if the stream is restored after the camera is gone for some time.
  * This will happen, when a chromebook is suspended.
+ * @param {function()} callback Completion callback.
  */
 camera.test.cases.restore = function(callback) {
   var instance;

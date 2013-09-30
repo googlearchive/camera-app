@@ -12,19 +12,20 @@ camera.Effect = function(tracker) {
 };
 
 /**
- * @override
+ * Randomizes the effect values.
  */
 camera.Effect.prototype.randomize = function() {
 };
 
 /**
- * @override
+ * Filters the passed frame with the effect.
  */
 camera.Effect.prototype.filterFrame = function(canvas) {
 };
 
 /**
- * @override
+ * Provides title of the effect.
+ * @return {string}
  */
 camera.Effect.prototype.getTitle = function() {
   return '(Effect)';
