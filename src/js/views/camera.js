@@ -504,7 +504,7 @@ camera.views.Camera.prototype.synchronizeBounds_ = function() {
     // recent version of Chrome.
     this.watchdog_ = setInterval(function() {
       if (stream.ended) {
-        this._ = false;
+        this.capturing_ = false;
         onDisconnected();
         clearTimeout(this.watchdog_);
         this.watchdog_ = null;
