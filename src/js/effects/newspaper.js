@@ -15,7 +15,7 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Newspaper = function(tracker) {
   camera.Effect.call(this, tracker);
-  
+
   /**
    * @param {number}
    * @private

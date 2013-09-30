@@ -47,7 +47,7 @@ camera.effects.Cinema.prototype.filterFrame = function(canvas) {
   y = canvas.height * face.y * 1.5;
   radius = Math.sqrt(face.width * face.width +
                      face.height * face.height) * canvas.width;
-  
+
   canvas.tiltShift(0,
                    y,
                    canvas.width - 1,

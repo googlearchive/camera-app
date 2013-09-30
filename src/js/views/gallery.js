@@ -120,7 +120,7 @@ camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
     }
     callback();
   }.bind(this);
-  
+
   var onError = function() {
     // TODO(mtomasz): Check.
     this.context.onError(
@@ -129,7 +129,7 @@ camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
     callback();
   }.bind(this);
 
-  var readEntries = function() { 
+  var readEntries = function() {
     dirReader.readEntries(function(inEntries) {
       if (inEntries.length == 0) {
         onScanFinished();
@@ -212,7 +212,7 @@ camera.views.Gallery.prototype.deletePicture_ = function(index) {
 
 camera.views.Gallery.prototype.showPicture_ = function(index) {
   var picture = this.pictures_[index];
-  
+
   var accepts = [{
     description: "*.jpg",
     extensions: ["jpg", "jpeg"],
@@ -220,7 +220,7 @@ camera.views.Gallery.prototype.showPicture_ = function(index) {
   }];
 
   fileName = picture.picture.imageEntry.name;
-  
+
   var onError = function() {
     // TODO(mtomasz): Check if it works.
     this.context_.onError(
@@ -323,7 +323,7 @@ camera.views.Gallery.prototype.onKeyPressed = function(event) {
  */
 camera.views.Gallery.prototype.addPictureToDOM_ = function(picture) {
   var index = this.pictures_.length;
-  
+
   var gallery = document.querySelector('#gallery .padder');
   var img = document.createElement('img');
   img.src = picture.thumbnailURL;
@@ -400,7 +400,7 @@ camera.views.Gallery.prototype.addPicture = function(dataURL) {
     this.context.onError(
         'gallery-save-failed',
         chrome.i18n.getMessage('errorMsgGallerySaveFailed'));
-  }.bind(this); 
+  }.bind(this);
 
   this.savePictureToFile_(
       'thumb-' + fileNameBase + '.jpg',

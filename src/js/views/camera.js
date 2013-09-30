@@ -15,7 +15,7 @@ camera.views = camera.views || {};
  */
 camera.views.Camera = function(context) {
   camera.View.call(this, context);
-  
+
   /**
    * Video element to catch the stream and plot it later onto a canvas.
    * @type {Video}
@@ -140,7 +140,7 @@ camera.views.Camera = function(context) {
         camera.util.waitForTransitionCompletion(
           document.querySelector('#toolbar'), 500, callback);
       });
-  
+
   /**
    * Whether a picture is being taken. Used to decrease video quality of
    * previews for smoother response.
@@ -155,7 +155,7 @@ camera.views.Camera = function(context) {
    * @private
    */
   this.collapseTimer_ = null;
-  
+
   /**
    * Set to true before the ribbon is displayed. Used to render the ribbon's
    * frames while it is not yet displayed, so the previews have some image
@@ -422,7 +422,7 @@ camera.views.Camera.prototype.takePicture_ = function() {
     var onError = function(opt_error) {
       console.log(opt_error);
     }.bind(this);
-    
+
     // Create a picture preview animation.
     var picturePreview = document.querySelector('#picture-preview');
     var img = document.createElement('img');
@@ -435,7 +435,7 @@ camera.views.Camera.prototype.takePicture_ = function() {
     }.bind(this));
 
     // Call the callback with the picture.
-    this.context.onPictureTaken(dataURL); 
+    this.context.onPictureTaken(dataURL);
   }.bind(this), 0);
 };
 
@@ -548,7 +548,7 @@ camera.views.Camera.prototype.stop = function() {
  */
 camera.views.Camera.prototype.start = function() {
   var index = 0;
-  
+
   var onSuccess = function(width, height) {
     // Set the default dimensions to at most half of the available width
     // and to the compatible aspect ratio. 640/360 dimensions are used to
@@ -627,7 +627,7 @@ camera.views.Camera.prototype.drawFrame_ = function() {
                     0,
                     0,
                     this.previewInputCanvas_.width,
-                    this.previewInputCanvas_.height); 
+                    this.previewInputCanvas_.height);
 
   // Detect and track faces.
   if (this.frame_ % 3 == 0)

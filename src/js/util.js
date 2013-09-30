@@ -33,7 +33,7 @@ camera.util.setAnimationClass = function(
     if (opt_onCompletion)
       opt_onCompletion();
   };
-  
+
   camera.util.waitForAnimationCompletion(
       animationElement, timeout, onAnimationCompleted);
 };
@@ -56,7 +56,7 @@ camera.util.waitForAnimationCompletion = function(
     onCompletion();
   };
   setTimeout(onAnimationCompleted, timeout);
-  animationElement.addEventListener('webkitAnimationEnd', onAnimationCompleted);  
+  animationElement.addEventListener('webkitAnimationEnd', onAnimationCompleted);
 };
 
 /**
@@ -78,7 +78,7 @@ camera.util.waitForTransitionCompletion = function(
   };
   setTimeout(onTransitionCompleted, timeout);
   transitionElement.addEventListener(
-      'webkitTransitionEnd', onTransitionCompleted);  
+      'webkitTransitionEnd', onTransitionCompleted);
 };
 
 /**
@@ -108,7 +108,7 @@ camera.util.ensureVisible = function(element, opt_parent) {
 
 /**
  * Wraps an effect in style implemented as either CSS3 animation or CSS3
- * transition. The passed closure should invoke the effect. 
+ * transition. The passed closure should invoke the effect.
  * Only the last callback, passed to the latest invoke() call will be called
  * on the transition or the animation end.
  *
@@ -137,7 +137,7 @@ camera.util.StyleEffect.prototype.invoke = function(state, callback) {
       return;
     var callback = this.callback_;
     this.callback_ = null;
-    
+
     // Let the animation neatly finish.
     setTimeout(callback, 0);
   }.bind(this));

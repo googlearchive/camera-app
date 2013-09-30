@@ -21,13 +21,13 @@ camera.effects.Vintage = function(tracker) {
    * @private
    */
   this.brightness_ = 0;
-  
+
   /**
    * @type {number}
    * @private
    */
   this.vibrance_ = -1;
-  
+
   /**
    * @type {number}
    * @private

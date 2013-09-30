@@ -51,7 +51,7 @@ camera.Camera = function() {
 
   // Handle key presses to make the Camera app accessible via the keyboard.
   document.body.addEventListener('keydown', this.onKeyPressed_.bind(this));
-  
+
    // Handle window decoration buttons.
   document.querySelector('#toolbar .gallery-button').addEventListener('click',
       this.onGalleryClicked_.bind(this));
@@ -74,7 +74,7 @@ camera.Camera = function() {
  */
 camera.Camera.Context = function(onPictureTaken, onError, onErrorRecovered) {
   camera.View.Context.call(this);
-  
+
   /**
    * @param {boolean}
    */
@@ -223,7 +223,7 @@ camera.Camera.prototype.onPictureTaken_ = function(dataURL) {
 camera.Camera.prototype.onError_ = function(identifier, message, opt_hint) {
   document.body.classList.add('has-error');
   this.context_.hasError = true;
-  document.querySelector('#error-msg').textContent = 
+  document.querySelector('#error-msg').textContent =
     message;
   document.querySelector('#error-msg-hint').textContent =
     opt_hint ? opt_hint : '';

@@ -23,25 +23,25 @@ camera.effects.Pinch = function(tracker, offset, size, strength) {
    * @private
    */
   this.amount_ = 0.5;
-  
+
   /**
    * @type {number}
    * @private
    */
   this.offset_ = offset;
-  
+
   /**
    * @type {number}
    * @private
    */
   this.size_ = size;
-  
+
   /**
    * @type {number}
    * @private
    */
   this.strength_ = strength;
-  
+
   // End of properties. Seal the object.
   Object.seal(this);
 };
