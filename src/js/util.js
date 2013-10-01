@@ -19,7 +19,7 @@ camera.util = camera.util || {};
  * @param {HTMLElement} animationElement Element to be animated.
  * @param {string} className Class name to be added.
  * @param {number} timeout Animation timeout in milliseconds.
- * @param {=function()} opt_onCompletion Completion callback.
+ * @param {function()=} opt_onCompletion Completion callback.
  */
 camera.util.setAnimationClass = function(
     classElement, animationElement, className, timeout, opt_onCompletion) {
@@ -87,8 +87,8 @@ camera.util.waitForTransitionCompletion = function(
  * Scrolls the parent of the element so the element is visible.
  *
  * @param {HTMLElement} element Element to be visible.
- * @param {=Element} opt_parent Parent element to be scrolled. If not provided,
- *     then parent of the passed element to be visible willbe used.
+ * @param {HTMLElement=} opt_parent Parent element to be scrolled. If not
+ *     provided, then parent of the passed element to be visible willbe used.
  */
 camera.util.ensureVisible = function(element, opt_parent) {
   var parent = opt_parent ? opt_parent : element.parentNode;
@@ -119,10 +119,13 @@ camera.util.ensureVisible = function(element, opt_parent) {
  */
 camera.util.StyleEffect = function(closure) {
   /**
-   * @param {function}
+   * @param {function(*, function()}
    * @private
    */
   this.closure_ = closure;
+
+  // End of properties. Seal the object.
+  Object.seal(this);
 };
 
 /**

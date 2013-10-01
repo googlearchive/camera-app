@@ -180,9 +180,7 @@ body.gallery #toolbar {
 }
 
 #error .icon {
-  background-image: url(../images/no_camera.svg);
-  background-position: center center;
-  background-repeat: no-repeat;
+  background: center center no-repeat url(../images/no_camera.svg);
   height: 120px;
   margin-bottom: 20px;
   width: 180px;

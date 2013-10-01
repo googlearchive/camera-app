@@ -104,6 +104,7 @@ camera.views.Camera = function(context) {
   /**
    * Selected effect or null if no effect.
    * @type {number}
+   * @private
    */
   this.currentEffectIndex_ = 0;
 
@@ -594,16 +595,17 @@ camera.views.Camera.prototype.start = function() {
   }.bind(this);
 
   var tryNextResolution = function() {
-    this.startWithResolution_(camera.views.Camera.RESOLUTIONS[index],
-                              onSuccess,
-                              function() {
-                                index++;
-                                if (index < camera.views.Camera.RESOLUTIONS.length)
-                                  tryNextResolution();
-                                else
-                                  onFailure();
-                              },
-                              scheduleRetry.bind(this));  // onDisconnected
+    this.startWithResolution_(
+        camera.views.Camera.RESOLUTIONS[index],
+        onSuccess,
+        function() {
+          index++;
+          if (index < camera.views.Camera.RESOLUTIONS.length)
+            tryNextResolution();
+          else
+            onFailure();
+        },
+        scheduleRetry.bind(this));  // onDisconnected
   }.bind(this);
 
   tryNextResolution();

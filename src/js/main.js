@@ -232,8 +232,7 @@ camera.Camera.prototype.onError_ = function(identifier, message, opt_hint) {
   document.body.classList.add('has-error');
   this.context_.hasError = true;
   document.querySelector('#error-msg').textContent = message;
-  document.querySelector('#error-msg-hint').textContent =
-      opt_hint ? opt_hint : '';
+  document.querySelector('#error-msg-hint').textContent = opt_hint || '';
 };
 
 camera.Camera.prototype.onErrorRecovered_ = function(identifier) {

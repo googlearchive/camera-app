@@ -11,7 +11,7 @@ var camera = camera || {};
  *
  * @param {Canvas|Video} input Canvas or Video with the input frame.
  * @param {fx.Canvas} output Canvas with the output frame.
- * @param {=camera.Processor.Mode} opt_mode Optional mode of the processor.
+ * @param {camera.Processor.Mode=} opt_mode Optional mode of the processor.
  *     Default is the high quality mode.
  * @constructor
  */
@@ -87,8 +87,8 @@ camera.Processor.prototype.processFrame = function() {
 
   switch (this.mode_) {
     case camera.Processor.Mode.FAST:
-      textureWidth = width / 2;
-      textureHeight = height / 2;
+      textureWidth = Math.round(width / 2);
+      textureHeight = Math.round(height / 2);
       break;
     case camera.Processor.Mode.DEFAULT:
       textureWidth = width;
