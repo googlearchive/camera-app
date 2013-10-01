@@ -289,8 +289,8 @@ camera.views.Gallery.prototype.exportPicture_ = function(index) {
   var onError = function() {
     // TODO(mtomasz): Check if it works.
     this.context_.onError(
-      'gallery-export-error',
-      chrome.i18n.getMessage('errorMsgGalleryExportFailed'));
+        'gallery-export-error',
+        chrome.i18n.getMessage('errorMsgGalleryExportFailed'));
   }.bind(this);
 
   var onDataLoaded = function(data) {
@@ -298,22 +298,22 @@ camera.views.Gallery.prototype.exportPicture_ = function(index) {
       type: "saveFile",
       suggestedName: fileName,
       accepts: accepts
-      }, function(fileEntry) {
-        if (!fileEntry)
-          return;
-        fileEntry.createWriter(function(fileWriter) {
-          fileWriter.onwrite = function() {};
-          fileWriter.onerror = onError;
-          // Blob has to be a Blob instance to be saved.
-          var array = new Uint8Array(data.length);
-          for (var index = 0; index < data.length; index++) {
-            array[index] = data.charCodeAt(index);
-          }
-          var blob = new Blob([array], {type: 'image/jpeg'});
-          fileWriter.write(blob);
-        }.bind(this),
-        onError);
-      }.bind(this));
+    }, function(fileEntry) {
+      if (!fileEntry)
+        return;
+      fileEntry.createWriter(function(fileWriter) {
+        fileWriter.onwrite = function() {};
+        fileWriter.onerror = onError;
+        // Blob has to be a Blob instance to be saved.
+        var array = new Uint8Array(data.length);
+        for (var index = 0; index < data.length; index++) {
+          array[index] = data.charCodeAt(index);
+        }
+        var blob = new Blob([array], {type: 'image/jpeg'});
+        fileWriter.write(blob);
+      }.bind(this),
+      onError);
+    }.bind(this));
   }.bind(this);
 
   picture.picture.imageEntry.file(function(file) {
@@ -392,11 +392,7 @@ camera.views.Gallery.prototype.addPictureToDOM_ = function(picture) {
   var img = document.createElement('img');
   img.src = picture.thumbnailURL;
   img.setAttribute('data-index', index);
-
-  if (gallery.firstChild)
-    gallery.insertBefore(img, gallery.firstChild);
-  else
-    gallery.appendChild(img);
+  gallery.insertBefore(img, gallery.firstChild);
 
   // Add to the collection.
   this.pictures_.push(new camera.views.Gallery.DOMPicture(picture, img));
@@ -447,8 +443,8 @@ camera.views.Gallery.prototype.savePictureToFile_ = function(
 };
 
 /**
- * Adds a picture to the gallery.
- * @param {camera.views.Gallery.Picture} picture Picture object.
+ * Adds a picture to the gallery and saves it in the internal storage.
+ * @param {string} dataURL Data of the picture to be added.
  */
 camera.views.Gallery.prototype.addPicture = function(dataURL) {
   // TODO(mtomasz): Handle the error.
@@ -485,7 +481,7 @@ camera.views.Gallery.prototype.addPicture = function(dataURL) {
           dataURL,
           function(imageEntry) {
             var picture = new camera.views.Gallery.Picture(
-              thumbnailEntry, imageEntry);
+                thumbnailEntry, imageEntry);
             this.addPictureToDOM_(picture);
           }.bind(this),
           // TODO(mtomasz): Remove the thumbnail on error.

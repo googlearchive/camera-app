@@ -58,8 +58,8 @@ camera.effects.Vintage.prototype.randomize = function() {
  */
 camera.effects.Vintage.prototype.filterFrame = function(canvas) {
  canvas.brightnessContrast(this.brightness_, this.contrast_).
-    vibrance(this.vibrance_).
-    vignette(0.5, 0.4);
+     vibrance(this.vibrance_).
+     vignette(0.5, 0.4);
 };
 
 /**

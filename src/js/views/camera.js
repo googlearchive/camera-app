@@ -141,7 +141,7 @@ camera.views.Camera = function(context) {
         else
           document.body.classList.remove('expanded');
         camera.util.waitForTransitionCompletion(
-          document.querySelector('#toolbar'), 500, callback);
+            document.querySelector('#toolbar'), 500, callback);
       });
 
   /**
@@ -282,8 +282,7 @@ camera.views.Camera.prototype.addEffect_ = function(effect) {
       this.setCurrentEffect_.bind(this, effectIndex));
 
   // Create the preview processor.
-  var processor = new camera.Processor(
-      this.previewInputCanvas_, canvas);
+  var processor = new camera.Processor(this.previewInputCanvas_, canvas);
   processor.effect = effect;
   this.previewProcessors_.push(processor);
 };
@@ -351,7 +350,7 @@ camera.views.Camera.prototype.onRibbonMouseMove_ = function(event) {
   if (event.which != 1)
     return;
   var ribbon = document.querySelector('#effects');
-  ribbon.scrollLeft = parseInt(ribbon.scrollLeft) - event.webkitMovementX;
+  ribbon.scrollLeft = ribbon.scrollLeft - event.webkitMovementX;
 };
 
 /**
@@ -388,10 +387,8 @@ camera.views.Camera.prototype.chooseFileStream = function() {
       return;
     fileEntry.file(function(file) {
       var url = URL.createObjectURL(file);
-      console.log(url);
       this.video_.src = url;
       this.video_.play();
-      console.log(this.video_.src);
     }.bind(this));
   }.bind(this));
 }
@@ -421,10 +418,6 @@ camera.views.Camera.prototype.takePicture_ = function() {
   setTimeout(function() {
     this.mainProcessor_.processFrame();
     var dataURL = this.mainCanvas_.toDataURL('image/jpeg');
-
-    var onError = function(opt_error) {
-      console.log(opt_error);
-    }.bind(this);
 
     // Create a picture preview animation.
     var picturePreview = document.querySelector('#picture-preview');

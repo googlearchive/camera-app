@@ -63,6 +63,9 @@ camera.Camera = function() {
       this.onMaximizeClicked_.bind(this));
   document.querySelector('#close-button').addEventListener('click',
       this.onCloseClicked_.bind(this));
+
+  // Set the localized window title.
+  document.title = chrome.i18n.getMessage('name');
 };
 
 /**
@@ -221,7 +224,7 @@ camera.Camera.prototype.onCloseClicked_ = function() {
 
 /**
  * Adds a picture taken in the camera view to the gallery view.
- * @param {function(string)} dataURL
+ * @param {string} dataURL
  * @private
  */
 camera.Camera.prototype.onPictureTaken_ = function(dataURL) {

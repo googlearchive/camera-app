@@ -57,8 +57,8 @@ camera.effects.Cinema.prototype.filterFrame = function(canvas) {
                    radius / 15.0,
                    canvas.height * 1.1);
   canvas.brightnessContrast(0.1, 0.2).
-    vibrance(-1).
-    vignette(0.5, 0.4);
+      vibrance(-1).
+      vignette(0.5, 0.4);
 };
 
 /**
