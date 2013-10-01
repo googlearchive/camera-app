@@ -25,13 +25,14 @@ camera.Effect.prototype.randomize = function() {
 
 /**
  * Filters the passed frame with the effect.
+ * @param {HTMLCanvasElement} canvas Canvas element to be filtered.
  */
 camera.Effect.prototype.filterFrame = function(canvas) {
 };
 
 /**
  * Provides title of the effect.
- * @return {string}
+ * @return {string} Title.
  */
 camera.Effect.prototype.getTitle = function() {
   return '(Effect)';

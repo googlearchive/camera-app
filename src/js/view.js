@@ -22,7 +22,7 @@ camera.View = function(context) {
    * @private
    */
   this.context_ = context;
-}
+};
 
 camera.View.prototype = {
   get active() {
@@ -60,8 +60,7 @@ camera.View.prototype.onLeave = function() {
 
 /**
  * Initializes the view. Call the callback on completion.
- * @param {function()} callback
- * @private
+ * @param {function()} callback Completion callback.
  */
 camera.View.prototype.initialize = function(callback) {
   callback();

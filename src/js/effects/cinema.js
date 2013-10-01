@@ -11,15 +11,15 @@ var camera = camera || {};
 camera.effects = camera.effects || {};
 
 /**
- * @private {camera.Tracker} tracker
+ * @param {camera.Tracker} tracker Head tracker object.
  * @constructor
- * @extend {camera.Effect}
+ * @extends {camera.Effect}
  */
 camera.effects.Cinema = function(tracker) {
   camera.Effect.call(this, tracker);
 
   /**
-   * @param {number}
+   * @type {number}
    * @private
    */
   this.mode_ = 0;

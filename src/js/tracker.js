@@ -183,7 +183,7 @@ camera.Tracker.Face.prototype = {
   set targetConfidence(confidence) {
     this.targetConfidence_ = confidence;
   }
-}
+};
 
 /**
  * Updates the detected face by applying some interpolation.
@@ -199,9 +199,9 @@ camera.Tracker.Face.prototype.update = function() {
 
 camera.Tracker.prototype = {
  /**
-   * Returns detected faces by the last call of update().
-   * @return {camera.Tracker.Face}
-   */
+  * Returns detected faces by the last call of update().
+  * @return {camera.Tracker.Face} Detected face object.
+  */
   get face() {
     return this.face_;
   }
@@ -216,7 +216,7 @@ camera.Tracker.prototype.detect = function() {
   this.busy_ = true;
 
   var result = ccv.detect_objects({
-    canvas: this.input_,//ccv.grayscale(ccv.pre(this.input_)),
+    canvas: this.input_,
     cascade: getCascade(),
     interval: 5,
     min_neighbors: 1,

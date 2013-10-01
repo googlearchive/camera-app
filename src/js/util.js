@@ -119,14 +119,14 @@ camera.util.ensureVisible = function(element, opt_parent) {
  */
 camera.util.StyleEffect = function(closure) {
   /**
-   * @param {function(*, function()}
+   * @type {function(*, function()}
    * @private
    */
   this.closure_ = closure;
 
   /**
    * Callback to be called for the latest invokation.
-   * @param {?function()}
+   * @type {?function()}
    * @private
    */
   this.callback_ = null;
@@ -157,7 +157,7 @@ camera.util.StyleEffect.prototype.invoke = function(state, callback) {
 
 /**
  * Checks whether the effect is in progress or already finished.
- * @return {boolean}
+ * @return {boolean} True if active, false otherwise.
  */
 camera.util.StyleEffect.prototype.isActive = function() {
   return !!this.callback_;

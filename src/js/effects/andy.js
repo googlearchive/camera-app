@@ -11,9 +11,9 @@ var camera = camera || {};
 camera.effects = camera.effects || {};
 
 /**
- * @private {camera.Tracker} tracker
+ * @param {camera.Tracker} tracker Head tracker object.
  * @constructor
- * @extend {camera.Effect}
+ * @extends {camera.Effect}
  */
 camera.effects.Andy = function(tracker) {
   camera.Effect.call(this, tracker);

@@ -12,6 +12,7 @@ var camera = camera || {};
 camera.Camera = function() {
   /**
    * @type {camera.Camera.Context}
+   * @private
    */
   this.context_ = new camera.Camera.Context(
       this.onPictureTaken_.bind(this),
@@ -75,33 +76,35 @@ camera.Camera = function() {
  *     picture is added.
  * @param {function(string, string, opt_string)} onError Callback to be called,
  *     when an error occurs. Arguments: identifier, first line, second line.
+ * @param {function(string)} onErrorRecovered Callback to be called,
+ *     when the error goes away. The argument is the error id.
  * @constructor
  */
 camera.Camera.Context = function(onPictureTaken, onError, onErrorRecovered) {
   camera.View.Context.call(this);
 
   /**
-   * @param {boolean}
+   * @type {boolean}
    */
   this.resizing = false;
 
   /**
-   * @param {boolean}
+   * @type {boolean}
    */
   this.hasError = false;
 
   /**
-   * @param {function(string)}
+   * @type {function(string)}
    */
   this.onPictureTaken = onPictureTaken;
 
   /**
-   * @param {function(string, string, string)}
+   * @type {function(string, string, string)}
    */
   this.onError = onError;
 
   /**
-   * @param {function(string)}
+   * @type {function(string)}
    */
   this.onErrorRecovered = onErrorRecovered;
 
@@ -123,7 +126,7 @@ camera.Camera.prototype = {
   get galleryView() {
     return this.galleryView_;
   }
-}
+};
 
 /**
  * Starts the app by initializing views and showing the camera view.
@@ -224,13 +227,21 @@ camera.Camera.prototype.onCloseClicked_ = function() {
 
 /**
  * Adds a picture taken in the camera view to the gallery view.
- * @param {string} dataURL
+ * @param {string} dataURL Picture data.
  * @private
  */
 camera.Camera.prototype.onPictureTaken_ = function(dataURL) {
   this.galleryView_.addPicture(dataURL);
 };
 
+/**
+ * Shows an error message.
+ *
+ * @param {string} identifier Identifier of the error.
+ * @param {string} message Message for the error.
+ * @param {string=} opt_hint Optional hint for the error message.
+ * @private
+ */
 camera.Camera.prototype.onError_ = function(identifier, message, opt_hint) {
   document.body.classList.add('has-error');
   this.context_.hasError = true;
@@ -238,6 +249,11 @@ camera.Camera.prototype.onError_ = function(identifier, message, opt_hint) {
   document.querySelector('#error-msg-hint').textContent = opt_hint || '';
 };
 
+/**
+ * Removes the error message when an error goes away.
+ * @param {string} identifier Identifier of the error.
+ * @private
+ */
 camera.Camera.prototype.onErrorRecovered_ = function(identifier) {
   // TODO(mtomasz): Implement identifiers handling in case of multiple
   // error messages at once.
@@ -253,7 +269,7 @@ camera.Camera.instance_ = null;
 
 /**
  * Returns the singleton instance of the Camera class.
- * @return {camera.Camera}
+ * @return {camera.Camera} Camera object.
  */
 camera.Camera.getInstance = function() {
   if (!camera.Camera.instance_)

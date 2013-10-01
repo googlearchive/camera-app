@@ -12,7 +12,7 @@ camera.views = camera.views || {};
 
 /**
  * Creates the Camera view controller.
- * @param {camera.view.Context} context Context object.
+ * @param {camera.View.Context} context Context object.
  * @constructor
  */
 camera.views.Camera = function(context) {
@@ -239,6 +239,7 @@ camera.views.Camera.prototype = {
 
 /**
  * Enters the view.
+ * @override
  */
 camera.views.Camera.prototype.onEnter = function() {
   this.onResize();
@@ -246,6 +247,7 @@ camera.views.Camera.prototype.onEnter = function() {
 
 /**
  * Leaves the view.
+ * @override
  */
 camera.views.Camera.prototype.onLeave = function() {
 };
@@ -289,7 +291,7 @@ camera.views.Camera.prototype.addEffect_ = function(effect) {
 
 /**
  * Sets the current effect.
- * @param {number} Effect index.
+ * @param {number} effectIndex Effect index.
  * @private
  */
 camera.views.Camera.prototype.setCurrentEffect_ = function(effectIndex) {
@@ -391,7 +393,7 @@ camera.views.Camera.prototype.chooseFileStream = function() {
       this.video_.play();
     }.bind(this));
   }.bind(this));
-}
+};
 
 /**
  * Takes the picture, saves and puts to the gallery with a nice animation.
@@ -437,7 +439,7 @@ camera.views.Camera.prototype.takePicture_ = function() {
 
 /**
  * Resolutions to be probed on the camera. Format: [[width, height], ...].
- * @type {Array.<Array>}
+ * @type {Array.<Array.<number>>}
  * @const
  */
 camera.views.Camera.RESOLUTIONS = [[1280, 720], [800, 600], [640, 480]];
@@ -476,12 +478,12 @@ camera.views.Camera.prototype.synchronizeBounds_ = function() {
 /**
  * Starts capturing with the specified resolution.
  *
- * @param {Array} resolution Width and height of the capturing mode, eg.
- *     [800, 600].
+ * @param {Array.<number>} resolution Width and height of the capturing mode,
+ *     eg. [800, 600].
  * @param {function(number, number)} onSuccess Success callback with the set
- *                                   resolution.
+ *     resolution.
  * @param {function()} onFailure Failure callback, eg. the resolution is
- *                     not supported.
+ *     not supported.
  * @param {function()} onDisconnected Called when the camera connection is lost.
  * @private
  */
@@ -570,7 +572,6 @@ camera.views.Camera.prototype.start = function() {
   }.bind(this);
 
   var scheduleRetry = function() {
-    console.log('Retrying.');
     this.context_.onError(
         'no-camera',
         chrome.i18n.getMessage('errorMsgNoCamera'),

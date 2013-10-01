@@ -11,16 +11,16 @@ var camera = camera || {};
 camera.effects = camera.effects || {};
 
 /**
- * @private {camera.Tracker} tracker
+ * @param {camera.Tracker} tracker Head tracker object.
  * @constructor
- * @extend {camera.Effect}
+ * @extends {camera.Effect}
  */
 camera.effects.Colorize = function(tracker) {
   camera.Effect.call(this, tracker);
 
   /**
-   * @param {number}
-   * @pribate
+   * @type {number}
+   * @private
    */
   this.hue_ = 0.5;
 

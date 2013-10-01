@@ -11,11 +11,12 @@ var camera = camera || {};
 camera.effects = camera.effects || {};
 
 /**
- * @private {camera.Tracker} tracker
+ * @param {camera.Tracker} tracker Head tracker object.
  * @param {number} offset Vertical offset in percents.
- * @param {number} scale Scale factor.
+ * @param {number} size Size of the pinch.
+ * @param {number} strength Strength of the pinch.
  * @constructor
- * @extend {camera.Effect}
+ * @extends {camera.Effect}
  */
 camera.effects.Pinch = function(tracker, offset, size, strength) {
   camera.Effect.call(this, tracker);
@@ -81,6 +82,11 @@ camera.effects.Pinch.prototype.getTitle = function() {
   return chrome.i18n.getMessage('pinchEffect');
 };
 
+/**
+ * @param {camera.Tracker} tracker Head tracker object.
+ * @constructor
+ * @extends {camera.effects.Pinch}
+ */
 camera.effects.BigHead = function(tracker) {
   camera.effects.Pinch.call(this, tracker, 0, 1.0, 1.0);
 };
@@ -89,10 +95,18 @@ camera.effects.BigHead.prototype = {
   __proto__: camera.effects.Pinch.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.BigHead.prototype.getTitle = function() {
   return chrome.i18n.getMessage('bigHeadEffect');
 };
 
+/**
+ * @param {camera.Tracker} tracker Head tracker object.
+ * @constructor
+ * @extends {camera.effects.Pinch}
+ */
 camera.effects.BigJaw = function(tracker) {
   camera.effects.Pinch.call(this, tracker, 0.45, 0.6, 1.0);
 };
@@ -101,10 +115,18 @@ camera.effects.BigJaw.prototype = {
   __proto__: camera.effects.Pinch.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.BigJaw.prototype.getTitle = function() {
   return chrome.i18n.getMessage('bigJawEffect');
 };
 
+/**
+ * @param {camera.Tracker} tracker Head tracker object.
+ * @constructor
+ * @extends {camera.effects.Pinch}
+ */
 camera.effects.BunnyHead = function(tracker) {
   camera.effects.Pinch.call(this, tracker, 0.4, 0.8, -0.7);
 };
@@ -113,6 +135,9 @@ camera.effects.BunnyHead.prototype = {
   __proto__: camera.effects.Pinch.prototype
 };
 
+/**
+ * @override
+ */
 camera.effects.BunnyHead.prototype.getTitle = function() {
   return chrome.i18n.getMessage('bunnyHeadEffect');
 };

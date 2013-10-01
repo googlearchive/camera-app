@@ -106,7 +106,7 @@ camera.test.cases.restore = function(callback) {
       camera.test.command('attach', 'Attach the camera device.');
       camera.test.waitForTrue('Wait for the stream.', function() {
         return instance.currentView.capturing;
-      }, callback)
+      }, callback);
     }
   ]);
 };

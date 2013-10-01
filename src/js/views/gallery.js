@@ -12,7 +12,7 @@ camera.views = camera.views || {};
 
 /**
  * Creates the Gallery view controller.
- * @param {camera.view.Context} context Context object.
+ * @param {camera.View.Context} context Context object.
  * @constructor
  */
 camera.views.Gallery = function(context) {
@@ -50,9 +50,9 @@ camera.views.Gallery = function(context) {
  * Wraps an image file as well as the thumbnail file of a picture in the
  * gallery.
  *
- * @type {FileEntry} thumbnailEntry Thumbnail file entry.
- * @type {FileEntry} imageEntry Image file entry.
- * @construct
+ * @param {FileEntry} thumbnailEntry Thumbnail file entry.
+ * @param {FileEntry} imageEntry Image file entry.
+ * @constructor
  */
 camera.views.Gallery.Picture = function(thumbnailEntry, imageEntry) {
   /**
@@ -91,9 +91,9 @@ camera.views.Gallery.Picture.prototype = {
  * Represents a picture attached to the DOM by combining the picture data
  * object with the DOM element..
  *
- * @type {camera.views.Gallery.Picture} picture Picture data.
- * @type {HTMLElement} element DOM element holding the picture.
- * @construct
+ * @param {camera.views.Gallery.Picture} picture Picture data.
+ * @param {HTMLElement} element DOM element holding the picture.
+ * @constructor
  */
 camera.views.Gallery.DOMPicture = function(picture, element) {
   /**
@@ -144,7 +144,7 @@ camera.views.Gallery.prototype.initialize = function(callback) {
 
 /**
  * Loads the pictures from the internal storage and adds them to DOM.
- * @param {function()} Completion callback.
+ * @param {function()} callback Completion callback.
  * @private
  */
 camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
@@ -194,6 +194,7 @@ camera.views.Gallery.prototype.loadStoredPictures_ = function(callback) {
 
 /**
  * Enters the view.
+ * @override
  */
 camera.views.Gallery.prototype.onEnter = function() {
   this.onResize();
@@ -202,6 +203,7 @@ camera.views.Gallery.prototype.onEnter = function() {
 
 /**
  * Leaves the view.
+ * @override
  */
 camera.views.Gallery.prototype.onLeave = function() {
   document.body.classList.remove('gallery');
@@ -279,9 +281,9 @@ camera.views.Gallery.prototype.exportPicture_ = function(index) {
   var picture = this.pictures_[index];
 
   var accepts = [{
-    description: "*.jpg",
-    extensions: ["jpg", "jpeg"],
-    mimeTypes: ["image/jpeg"]
+    description: '*.jpg',
+    extensions: ['jpg", "jpeg'],
+    mimeTypes: ['image/jpeg']
   }];
 
   var fileName = picture.picture.imageEntry.name;
@@ -295,7 +297,7 @@ camera.views.Gallery.prototype.exportPicture_ = function(index) {
 
   var onDataLoaded = function(data) {
     chrome.fileSystem.chooseEntry({
-      type: "saveFile",
+      type: 'saveFile',
       suggestedName: fileName,
       accepts: accepts
     }, function(fileEntry) {
@@ -382,7 +384,8 @@ camera.views.Gallery.prototype.onKeyPressed = function(event) {
 
 /**
  * Adds a picture to the gallery.
- * @param {string} dataURL Data of the picture.
+ * @param {camera.views.Gallery.Picture} picture Picture object to be added to
+ *     DOM.
  * @private
  */
 camera.views.Gallery.prototype.addPictureToDOM_ = function(picture) {

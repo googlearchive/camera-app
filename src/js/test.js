@@ -11,7 +11,7 @@ var camera = camera || {};
 camera.test = {};
 
 /**
- * @param {Socket}
+ * @type {Socket}
  * @private
  */
 camera.test.socket_ = null;
@@ -37,7 +37,7 @@ camera.test.assert = function(condition, message, onFailure) {
 
 /**
  * Run asynchronous steps sequentially.
- * @param {Array.<function(function())>} Array of steps.
+ * @param {Array.<function(function())>} steps Array of steps.
  */
 camera.test.runSteps = function(steps) {
   var serveNextStep = function() {
@@ -51,9 +51,9 @@ camera.test.runSteps = function(steps) {
 
 /**
  * Calls the passed closure repeatedly until it returns true.
- * @param {string} message, Message to be shown.
+ * @param {string} message Message to be shown.
  * @param {function()} closure Closure to be repeated.
- * @param {function()} callack Success callback.
+ * @param {function()} callback Success callback.
  */
 camera.test.waitForTrue = function(message, closure, callback) {
   camera.test.info('Waiting for: ' + message);
