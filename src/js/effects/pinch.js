@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Namespace for the Camera app.
  */
@@ -62,10 +64,10 @@ camera.effects.Pinch.prototype.randomize = function() {
  */
 camera.effects.Pinch.prototype.filterFrame = function(canvas) {
   var face = this.tracker_.face;
-  x = canvas.width * (face.x + (face.width / 2));
-  y = canvas.height * face.y;
-  radius = Math.sqrt(face.width * face.width +
-                     face.height * face.height) * canvas.width;
+  var x = canvas.width * (face.x + (face.width / 2));
+  var y = canvas.height * face.y;
+  var radius = Math.sqrt(face.width * face.width +
+                         face.height * face.height) * canvas.width;
   canvas.bulgePinch(x,
                     y + this.offset_ * radius,
                     radius * this.amount_ * this.size_,

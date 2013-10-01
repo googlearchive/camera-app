@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Namespace for the Camera app.
  */
@@ -43,10 +45,10 @@ camera.effects.Cinema.prototype.randomize = function() {
  */
 camera.effects.Cinema.prototype.filterFrame = function(canvas) {
   var face = this.tracker_.face;
-  x = canvas.width * (face.x + (face.width / 2));
-  y = canvas.height * face.y * 1.5;
-  radius = Math.sqrt(face.width * face.width +
-                     face.height * face.height) * canvas.width;
+  var x = canvas.width * (face.x + (face.width / 2));
+  var y = canvas.height * face.y * 1.5;
+  var radius = Math.sqrt(face.width * face.width +
+                         face.height * face.height) * canvas.width;
 
   canvas.tiltShift(0,
                    y,

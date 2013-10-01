@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Namespace for the Camera app.
  */
@@ -282,7 +284,7 @@ camera.views.Gallery.prototype.exportPicture_ = function(index) {
     mimeTypes: ["image/jpeg"]
   }];
 
-  fileName = picture.picture.imageEntry.name;
+  var fileName = picture.picture.imageEntry.name;
 
   var onError = function() {
     // TODO(mtomasz): Check if it works.

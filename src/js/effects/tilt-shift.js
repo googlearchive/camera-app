@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Namespace for the Camera app.
  */

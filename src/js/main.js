@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Namespace for the Camera app.
  */
@@ -52,7 +54,7 @@ camera.Camera = function() {
   // Handle key presses to make the Camera app accessible via the keyboard.
   document.body.addEventListener('keydown', this.onKeyPressed_.bind(this));
 
-   // Handle window decoration buttons.
+  // Handle window decoration buttons.
   document.querySelector('#toolbar .gallery-button').addEventListener('click',
       this.onGalleryClicked_.bind(this));
   document.querySelector('#corner-buttons .gallery-button').addEventListener(
