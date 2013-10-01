@@ -17,7 +17,7 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Swirl = function(tracker) {
   camera.Effect.call(this, tracker);
-  Object.seal(this);
+  Object.freeze(this);
 };
 
 camera.effects.Swirl.prototype = {

@@ -17,7 +17,7 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Grayscale = function(tracker) {
   camera.Effect.call(this, tracker);
-  Object.seal(this);
+  Object.freeze(this);
 };
 
 camera.effects.Grayscale.prototype = {

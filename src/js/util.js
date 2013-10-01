@@ -124,6 +124,13 @@ camera.util.StyleEffect = function(closure) {
    */
   this.closure_ = closure;
 
+  /**
+   * Callback to be called for the latest invokation.
+   * @param {?function()}
+   * @private
+   */
+  this.callback_ = null;
+
   // End of properties. Seal the object.
   Object.seal(this);
 };

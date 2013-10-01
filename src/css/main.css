@@ -42,10 +42,10 @@ button {
 #corner-buttons button {
   background: rgba(0, 0, 0, 0.75) center center no-repeat;
   border: none;
-  padding: 0;
   height: 32px;
-  width: 32px;
   margin: 0 2px;
+  padding: 0;
+  width: 32px;
 }
 
 #header button:hover,

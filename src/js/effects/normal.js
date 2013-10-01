@@ -17,7 +17,7 @@ camera.effects = camera.effects || {};
  */
 camera.effects.Normal = function(tracker) {
   camera.Effect.call(this, tracker);
-  Object.seal(this);
+  Object.freeze(this);
 };
 
 camera.effects.Normal.prototype = {

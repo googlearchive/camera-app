@@ -67,8 +67,8 @@ camera.views.Gallery.Picture = function(thumbnailEntry, imageEntry) {
    */
   this.imageEntry_ = imageEntry;
 
-  // End of properties. Seal the object.
-  Object.seal(this);
+  // End of properties. Freeze the object.
+  Object.freeze(this);
 };
 
 camera.views.Gallery.Picture.prototype = {
@@ -108,8 +108,8 @@ camera.views.Gallery.DOMPicture = function(picture, element) {
    */
   this.element_ = element;
 
-  // End of properties. Seal the object.
-  Object.seal(this);
+  // End of properties. Freeze the object.
+  Object.freeze(this);
 };
 
 camera.views.Gallery.DOMPicture.prototype = {
