@@ -1,20 +1,28 @@
 #!/usr/bin/python
 
+"""Binds or unbinds a specified USB video device.
+
+To use, run as root: ./camera_ctl.py device-identifier bind/unbind
+
+The USB identifier looks like 2-1.4.3:1.0. Available devices are in:
+/sys/bus/usb/drivers/uvcvideo/.
+"""
+
 import sys
 
-id = sys.argv[1]
-mode = sys.argv[2]
+# Starts the script.
+def main():
+  device_id  = sys.argv[1]
+  command = sys.argv[2]
 
-command = ''
+  if command != 'bind' and command != 'unbind':
+    print 'Incorrect command.'
+    sys.exit(-1)
 
-if mode == '0':
-  command = 'unbind'
-elif mode == '1':
-  command = 'bind'
-else:
-  print 'Incorrect mode.'
-  sys.exit(-1)
+  with open('/sys/bus/usb/drivers/uvcvideo/%s' % command, 'w') as driver:
+    driver.write(device_id)
+    driver.close()
 
-with open('/sys/bus/usb/drivers/uvcvideo/%s' % command, 'w') as driver:
-  driver.write(id)
-  driver.close()
+if __name__ == '__main__':
+  main()
+

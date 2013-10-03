@@ -1,9 +1,10 @@
+"""Simple WebSocket server implementation for use of the test runner. """
+
 import array
 import base64
 import hashlib
 import socket
 import struct
-import threading
 import SocketServer
 
 s2a = lambda s: [ord(c) for c in s]
@@ -13,6 +14,8 @@ STATUS_NO_RESPONSE = -2
 STATUS_INTERNAL_ERROR = -3
 STATUS_SUCCESS = 0
 
+# Threaded test server with additional fields and callbacks to communicate with
+# the test runner.
 class Server(SocketServer.ThreadingTCPServer):
   def __init__(self, server_address, RequestHandlerClass, callback,
         command_callback, test_case):
@@ -23,22 +26,30 @@ class Server(SocketServer.ThreadingTCPServer):
     self.command_callback = command_callback
     self.test_case = test_case
 
+  # Terminates the thread.
   def terminate(self):
     # TODO(mtomasz): This is far from a good design. This is called from the
     # UI thread, but the Server lives on a separate thread.
     self.shutdown()
 
+# Handler of WebSocket incoming connections. Establishes the connection by
+# exchanging headers, and then parses the frames and passes the messages to the
+# test runner via callbacks.
 class Handler(SocketServer.StreamRequestHandler):
+
+  # Handles an incoming connection.
   def handle(self):
-    status = STATUS_INTERNAL_ERROR;
+    status = STATUS_INTERNAL_ERROR
 
     # Accept incoming messages.
     if self.handleHeaders():
-      status = self.handleFrames();
+      status = self.handleFrames()
 
     # Return the result
     self.server.callback(status)
 
+  # Handles request headers and returns the response headers plus the test case
+  # to be executed.
   def handleHeaders(self):
     headers = {}
 
@@ -73,6 +84,8 @@ class Handler(SocketServer.StreamRequestHandler):
       except socket.error:
         return False
 
+  # Handles incoming frames from the WebSocket client. This parser is a limited
+  # and supports only features used by the test case runner.
   def handleFrames(self):
     status = STATUS_NO_RESPONSE
     while True:
@@ -82,7 +95,7 @@ class Handler(SocketServer.StreamRequestHandler):
           break
 
         # Parse the header.
-        b1, b2 = struct.unpack_from(">BB", data);
+        b1, b2 = struct.unpack_from(">BB", data)
         frame_fin = (b1 & 0x80) >> 7
         frame_opcode = b1 & 0x0f
         frame_masked = (b2 & 0x80) >> 7
@@ -96,7 +109,7 @@ class Handler(SocketServer.StreamRequestHandler):
           frame_header_length += 8
           frame_length = struct.unpack_from('>xxQ', data)
         frame_total_length = frame_header_length + frame_masked * 4 + \
-            frame_length;
+            frame_length
 
         data = self.rfile.read(frame_total_length - 2)
 
@@ -123,20 +136,21 @@ class Handler(SocketServer.StreamRequestHandler):
         if frame_opcode == 8:
           return status
 
-        status = self.parseFrameMessage(frame_payload, status)
+        status = self.handleFrameMessage(frame_payload, status)
       except socket.error:
         status = STATUS_INTERNAL_ERROR
-        pass
 
     return status
 
-  def parseFrameMessage(self, line, status):
+  # Handles a decoded frame message and calls the test case runner's callbacks
+  # if necessary. TODO(mtomasz): Move this logic to run_test.py.
+  def handleFrameMessage(self, line, status):
     command = ''
     message = ''
     if line.find(' ') != -1:
-      array = line.split(' ', 1)
-      command = array[0]
-      message = array[1]
+      tokens = line.split(' ', 1)
+      command = tokens[0]
+      message = tokens[1]
     else:
       command = line
 
