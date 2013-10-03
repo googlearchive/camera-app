@@ -556,7 +556,7 @@ camera.views.Camera.prototype.start = function() {
     var targetAspectRatio = width / height;
     var targetWidth = Math.round(Math.min(width, screen.width / 2));
     var targetHeight = Math.round(targetWidth / targetAspectRatio);
-    if (windowWidth == 640 && windowHeigth == 360)
+    if (windowWidth == 640 && windowHeight == 360)
       chrome.app.window.current().resizeTo(targetWidth, targetHeight);
     chrome.app.window.current().show();
     // Show tools after some small delay to make it more visible.
