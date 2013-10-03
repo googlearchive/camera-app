@@ -5,7 +5,7 @@
       <rect x="0" y="0" width="640" height="480" fill="#FFFFFF"/>
       <circle cx="320" cy="260" r="150" fill="#000000"/>
     </mask>
-    <mask id="smile"> 
+    <mask id="smile">
       <g>
         <rect x="0" y="0" width="640" height="480" fill="#ffffff"/>
         <defs>
