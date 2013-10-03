@@ -9,6 +9,14 @@ import websocket_handler
 import threading
 import SocketServer
 
+# Location of the Chrome binary.
+chrome_path = 'google-chrome'
+chrome_binary = 'chrome'
+
+# Location of the Camera app.
+self_path = os.path.dirname(os.path.abspath(__file__))
+camera_path = os.path.join(self_path, '../build/tests')
+
 kill_cmd = None
 server = None
 server_thread = None
@@ -36,19 +44,12 @@ def close(returncode):
 test_case = sys.argv[1]
 test_timeout = int(sys.argv[2])
 
-# Location of the Chrome binary.
-chrome_path = 'google-chrome'
-chrome_binary = 'chrome'
-
-# Location of the Camera app.
-camera_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../build/tests')
-
 # Step 1. Kill all existing chrome windows.
 kill_cmd = ['killall', '-q', '-9', chrome_binary]
 cmd(kill_cmd)
 
 # Step 2. Restart the camera module.
-if cmd(['sudo', './camera_reset.py']) != 0:
+if cmd(['sudo', os.path.join(self_path, 'camera_reset.py')]) != 0:
   print 'Failed to reload the camera kernel module.'
   sys.exit(websocket_handler.STATUS_INTERNAL_ERROR)
 
@@ -78,26 +79,29 @@ def command(name):
     for camera_device in camera_devices:
       if not os.path.exists('/sys/bus/usb/drivers/uvcvideo/%s' % camera_device):
         continue
-      if cmd(['sudo', './camera_ctl.py', camera_device, '0']) != 0:
+      if cmd(['sudo', os.path.join(self_path, 'camera_ctl.py'),
+          camera_device, '0']) != 0:
         print 'Failed to detach a camera.'
         sys.exit(websocket_handler.STATUS_INTERNAL_ERROR)
   if name == 'attach':
     for camera_device in camera_devices:
       if os.path.exists('/sys/bus/usb/drivers/uvcvideo/%s' % camera_device):
         continue
-      if cmd(['sudo', './camera_ctl.py', camera_device, '1']) != 0:
+      if cmd(['sudo', os.path.join(self_path, 'camera_ctl.py'),
+          camera_device, '1']) != 0:
         print 'Failed to attach the camera.'
         sys.exit(websocket_handler.STATUS_INTERNAL_ERROR)
 
-server = websocket_handler.Server(('localhost', 47552), websocket_handler.Handler, close, command, test_case)
+server = websocket_handler.Server(('localhost', 47552),
+    websocket_handler.Handler, close, command, test_case)
 server_thread = threading.Thread(target=server.serve_forever)
 server_thread.daemon = True
 server_thread.start()
 
 # Step 7. Install the Camera app.
-run_cmd = [chrome_path, '--verbose', '--enable-logging', '--load-and-launch-app=%s' % camera_path, '--camera-run-tests']
-chrome_process = subprocess.Popen(run_cmd, shell=False)
-chrome_process.wait()
+run_cmd = [chrome_path, '--verbose', '--enable-logging',
+    '--load-and-launch-app=%s' % camera_path, '--camera-run-tests']
+cmd(run_cmd)
 
 # Wait until the browser is closed.
 cmd(kill_cmd)

@@ -15,11 +15,16 @@ Camera App is not ready yet. It does not save pictures. However, you can test it
 
 On Chromebooks, you may want to right-click and choose 'Save Link As', then install it from Files App to avoid security messages.
 
+Compiling
+---------
+
+To compile run "make clean; make all". Note, that officially only Linux is supported.
+
 Automated tests
 ---------------
 
-To perform automated tests on Linux, go to camera/tests/ and run camera_tests.py. Note, that these tests are experimental.
-The script must be able to execute sudo without a password.
+To perform automated tests on Linux, go to camera/tests/ and run run_all_tests.py. Note, that these tests are experimental.
+The script must be able to execute sudo without a password. Be sure, to rebuild the project before testing (see: Compiling).
 
 Shortcuts
 ---------

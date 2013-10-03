@@ -11,8 +11,10 @@ test_cases = ['basic', 'capture', 'restore']
 timeout = 30
 
 # Run tests which require camera.
+self_path = os.path.dirname(os.path.abspath(__file__))
 for test_case in test_cases:
-  p = subprocess.Popen(['./run_test.py', test_case, str(timeout)], shell=False)
+  p = subprocess.Popen([os.path.join(self_path, 'run_test.py'),
+      test_case, str(timeout)], shell=False)
   p.wait()
   if p.returncode != 0:
     print '(TEST CASE FAILURE) %s' % test_case

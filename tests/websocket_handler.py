@@ -14,9 +14,11 @@ STATUS_INTERNAL_ERROR = -3
 STATUS_SUCCESS = 0
 
 class Server(SocketServer.ThreadingTCPServer):
-  def __init__(self, server_address, RequestHandlerClass, callback, command_callback, test_case):
+  def __init__(self, server_address, RequestHandlerClass, callback,
+        command_callback, test_case):
     self.allow_reuse_address = True
-    SocketServer.ThreadingTCPServer.__init__(self, server_address, RequestHandlerClass)
+    SocketServer.ThreadingTCPServer.__init__(self, server_address,
+        RequestHandlerClass)
     self.callback = callback
     self.command_callback = command_callback
     self.test_case = test_case
@@ -54,7 +56,8 @@ class Handler(SocketServer.StreamRequestHandler):
         else:
           # Send the response headers.
           sha1 = hashlib.sha1()
-          sha1.update(headers['Sec-WebSocket-Key'] + '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
+          sha1.update(headers['Sec-WebSocket-Key'] +
+              '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
           secret = base64.b64encode(sha1.digest())
           self.wfile.write('HTTP/1.1 101 Switching Protocols\r\n')
           self.wfile.write('Upgrade: websocket\r\n')
@@ -92,7 +95,8 @@ class Handler(SocketServer.StreamRequestHandler):
         elif frame_length == 127:
           frame_header_length += 8
           frame_length = struct.unpack_from('>xxQ', data)
-        frame_total_length = frame_header_length + frame_masked * 4 + frame_length;
+        frame_total_length = frame_header_length + frame_masked * 4 + \
+            frame_length;
 
         data = self.rfile.read(frame_total_length - 2)
 
